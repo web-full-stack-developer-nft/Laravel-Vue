@@ -1,6 +1,6 @@
 <template>
     <!-- Side bar-->
-    <div id="sidebar" class="h-screen w-1/12 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
+    <div id="sidebar" class="h-screen w-64 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
 
         <ul class="list-reset ">
             <li class="my-2 md:my-0">

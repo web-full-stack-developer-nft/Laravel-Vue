@@ -1,7 +1,7 @@
 <template>
-<div>
+<div style="border:1px solid red;">
 	<div class="top-right links">
-		
+		Welcome to Our Site
 	</div>
 </div>
 </template>

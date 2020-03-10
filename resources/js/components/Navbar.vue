@@ -1,6 +1,5 @@
 <template>
-<div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
-
+<div>
     <div class="h-40 lg:h-20 w-full flex flex-wrap">
         <nav id="header1" class="bg-gray-100 w-auto flex-1 border-b-1 border-gray-300 order-1 lg:order-2">
 
@@ -67,7 +66,6 @@
 
         </nav>
     </div>
-
 </div>
 </template>
 

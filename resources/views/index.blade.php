@@ -21,7 +21,7 @@ $config = [
 
   <link rel="stylesheet" href="{{ mix('dist/css/main.css') }}">
 </head>
-<body class="flex h-screen bg-gray-100 font-sans">
+<body class="bg-gray-100">
   <div id="app">
     
   </div>
