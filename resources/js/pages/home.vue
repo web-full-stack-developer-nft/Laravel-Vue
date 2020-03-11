@@ -8,8 +8,8 @@
 export default {
   	middleware: 'auth',
 	layout: 'basic',
-	  metaInfo () {
+  	metaInfo () {
 		return { title: this.$t('home') }
-	  }
+  	}
 };
 </script>

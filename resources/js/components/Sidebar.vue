@@ -15,9 +15,9 @@
             </a>
         </li>
         <li class="my-2 md:my-0 ">
-            <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+            <router-link to="task" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                 <i class="fas fa-tasks fa-fw mr-3"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Tasks</span>
-            </a>
+            </router-link>
         </li>
         <li class="my-2 md:my-0">
             <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
