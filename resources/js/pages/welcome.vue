@@ -1,6 +1,6 @@
 <template>
 <div style="border:1px solid red;">
-	<div class="top-right links">
+	<div>
 		Welcome to Our Site
 	</div>
 </div>

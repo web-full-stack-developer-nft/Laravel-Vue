@@ -5,6 +5,11 @@ require('laravel-mix-versionhash')
 require('laravel-mix-postcss-config');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
+mix.browserSync({
+	proxy: 'http://localhost:8000/',
+	files: ["resources/css/main.css", "resources/js/**/*.vue"]
+});
+
 mix
 	.js('resources/js/app.js', 'public/dist/js')
 	.postCss('resources/css/main.css', 'public/dist/css',[
@@ -56,4 +61,3 @@ function publishAseets () {
 	fs.removeSync(path.join(publicDir, 'build'))
 }
 
-mix.browserSync('http://localhost:8000/');

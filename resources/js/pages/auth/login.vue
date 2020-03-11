@@ -60,7 +60,7 @@ import LoginWithGithub from '~/components/LoginWithGithub'
 
 export default {
 	middleware: 'guest',
-
+	layout: 'basic',
 	components: {
 		LoginWithGithub
 	},

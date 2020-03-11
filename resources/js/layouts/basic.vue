@@ -1,11 +1,11 @@
 <template>
 <div>
-	<div>
-		<!-- <sidebar/> -->
-	</div>
-	<div>
+	<sidebar/>
+	<div class="ml-64">
 		<navbar/>
-		<child />
+		<div>
+			<child />
+		</div>
 	</div>
 </div>
 </template>
