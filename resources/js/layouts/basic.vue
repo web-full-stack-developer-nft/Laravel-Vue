@@ -3,7 +3,7 @@
 	<sidebar/>
 	<div class="ml-64">
 		<navbar/>
-		<div>
+		<div class="p-5">
 			<child />
 		</div>
 	</div>

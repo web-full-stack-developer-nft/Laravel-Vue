@@ -1,29 +1,29 @@
 <template>
-	<div class="row">
+	<div class="text-center">
 		<div>
 			<card :title="$t('login')">
-				<div class="w-full max-w-xs">
+				<div class="max-w-xs m-auto">
 					<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="login" @keydown="form.onKeydown($event)">
 						<!-- Email -->
-						<div class="mb-4">
-							<label class="block text-gray-700 text-sm font-bold mb-2" for="username">{{ $t('email') }}</label>
+						<div>
+							<label class="block text-gray-700 text-sm font-bold mb-2 text-left" for="username">{{ $t('email') }}</label>
 							<div class="col-md-7">
 								<input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" name="email">
-								<has-error :form="form" field="email" />
+								<has-error :form="form" field="email" class="mt-2 text-red-600 text-left font-semibold" />
 							</div>
 						</div>
 
 						<!-- Password -->
 						<div class="form-group row">
-							<label class="block text-gray-700 text-sm font-bold mb-2" for="password">{{ $t('password') }}</label>
+							<label class="block text-gray-700 text-sm font-bold mb-2 text-left" for="password">{{ $t('password') }}</label>
 							<div class="col-md-7">
-								<input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"  type="password" name="password">
-								<has-error :form="form" field="password" />
+								<input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="password" name="password">
+								<has-error :form="form" field="password" class="mt-2 text-red-600 text-left font-semibold"/>
 							</div>
 						</div>
 
 						<!-- Remember Me -->
-						<div class="form-group row">
+						<div class="form-group row text-left">
 							<div class="col-md-3" />
 							<div class="col-md-7 d-flex">
 								<checkbox v-model="remember" name="remember">

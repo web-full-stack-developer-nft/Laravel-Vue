@@ -1,8 +1,8 @@
 <template>
 <!-- Side bar-->
-<div id="sidebar" class="h-screen w-64 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
-
-    <ul class="list-reset ">
+<div id="sidebar" class="h-screen w-64 menu bg-white text-white px-4 flex nunito static fixed shadow">
+    <ul class="list-reset w-full">
+        <li class="text-center ">   <router-link to="/"><img src="/logo.png" alt="" class="object-contain h-24 w-24 m-auto"></router-link>     </li>
         <li class="my-2 md:my-0">
             <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400 flex items-center">
                 <svg aria-hidden="true" data-prefix="fad" data-icon="house-damage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-4 h-4">
