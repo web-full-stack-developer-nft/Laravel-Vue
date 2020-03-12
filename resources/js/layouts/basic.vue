@@ -1,7 +1,7 @@
 <template>
 <div>
 	<sidebar/>
-	<div class="ml-64">
+	<div class="ml-10 sm:ml-10 md:ml-64 lg:ml-64 xl:ml-64">
 		<navbar/>
 		<div class="p-5">
 			<child />
