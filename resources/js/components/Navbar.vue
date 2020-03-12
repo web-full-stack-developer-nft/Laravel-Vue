@@ -23,7 +23,7 @@
                 <div class="flex relative inline-block pr-6">
 
                     <div class="relative text-sm">
-                        <div>
+                        <div class="flex">
                         	<template v-if="token"> 
 								  <button id="userButton" class="flex items-center focus:outline-none mr-3" @click="dropdown()">
                                     <img class="w-8 h-8 rounded-full mr-4" src="http://i.pravatar.cc/300" alt="Avatar of User"> <span class="hidden md:inline-block">Hi, {{ user.name }} </span>
