@@ -1,7 +1,7 @@
 <template>
 <div>
 	<sidebar/>
-	<div class="ml-10 sm:ml-10 md:ml-64 lg:ml-64 xl:ml-64">
+	<div :class="ismobile=='m' ? 'ml-10':'sm:ml-10 md:ml-64 lg:ml-64 xl:ml-64'">
 		<navbar/>
 		<div class="p-5">
 			<child />
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Navbar from '~/components/Navbar'
 import Sidebar from '~/components/Sidebar'
 export default {
@@ -18,6 +19,9 @@ export default {
     	Navbar,
     	Sidebar
   	},
+  	computed: mapGetters({
+        ismobile: 'sidebar/ismobile'
+    }),
 	name: 'BasicLayout'
 };
 </script>

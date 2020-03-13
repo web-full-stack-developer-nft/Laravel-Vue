@@ -8,3 +8,4 @@ export const UPDATE_USER = 'UPDATE_USER'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
+export const TOGGLE_VIEW = 'TOGGLE_VIEW'
