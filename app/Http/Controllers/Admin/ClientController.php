@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateClientRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Client;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class ClientController extends Controller
 {
@@ -15,13 +16,25 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        // $clients = Client::with('projects')->paginate(20);
-        // return response()->json([
-        //     'clients' => $clients
-        // ]);
-        return "Hello World";
+    // public function index()
+    // {
+    //     $clients = Client::with('projects')->paginate(20);
+    //     return response($clients);
+    //     // return "Hello World";
+    // }
+
+    public function index(Request $request)
+    {   
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = Client::eloquentQuery($sortBy, $orderBy, $searchValue);
+
+        $data = $query->paginate($length);
+        
+        return new DataTableCollectionResource($data);
     }
 
     /**
@@ -38,9 +51,7 @@ class ClientController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
         ])) {
-            return response()->json([
-                'client' => $client
-            ]);
+            return response($client);
         }
     }
 

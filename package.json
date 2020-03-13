@@ -17,6 +17,7 @@
     "browser-sync-webpack-plugin": "^2.2.2",
     "js-cookie": "^2.2.0",
     "laravel-mix-postcss-config": "^1.0.3",
+    "laravel-vue-datatable": "^0.5.10",
     "popper.js": "^1.15.0",
     "postcss-cli": "^7.1.0",
     "sweetalert2": "^8.10.0",
