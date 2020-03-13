@@ -14,6 +14,7 @@ export default [
 
   { path: '/home', name: 'home', component: page('home.vue') },
   { path: '/task', name: 'home', component: page('task.vue') },
+  { path: '/client', name: 'home', component: page('client.vue') },
   { path: '/settings',
     component: page('settings/index.vue'),
     children: [
