@@ -20,6 +20,10 @@ class Client extends Model
         ]
     ];
 
+    public function getTableColumns() {
+        return $this->fillable;;
+    }
+
     /**
      * The attributes that are mass assignable.
      *

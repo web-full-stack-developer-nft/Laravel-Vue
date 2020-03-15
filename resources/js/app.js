@@ -8,6 +8,15 @@ Vue.use(DataTable);
 import '~/plugins'
 import '~/components'
 
+Vue.component('custom-input', {
+  props: ['value'],
+  template: `
+    <input
+     	v-model="value"
+    >
+  `
+})
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

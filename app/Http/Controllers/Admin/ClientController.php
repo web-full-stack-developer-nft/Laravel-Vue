@@ -55,6 +55,12 @@ class ClientController extends Controller
         }
     }
 
+    public function create()
+    {
+        $client=new Client();
+        return response($client->getTableColumns());
+    }
+
     /**
      * Update the specified resource in storage.
      *

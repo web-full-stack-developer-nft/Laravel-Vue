@@ -47,7 +47,7 @@ Route::group([
     Route::post('checkin',"Admin\AdminController@checkIn");
 
     Route::resource('clients', 'Admin\ClientController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('projects', 'Admin\ProjectController')->except([
         'create', 'show', 'edit'

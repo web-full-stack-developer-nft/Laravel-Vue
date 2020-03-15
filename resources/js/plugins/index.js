@@ -1,4 +1,5 @@
 import './axios'
+import './tailwind'
 // import './vuetable'
 // import './fontawesome'
 // import 'bootstrap'
