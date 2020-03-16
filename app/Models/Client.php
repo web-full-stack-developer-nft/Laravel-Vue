@@ -21,7 +21,7 @@ class Client extends Model
     ];
 
     public function getTableColumns() {
-        return $this->fillable;;
+        return $this->columns;;
     }
 
     /**
@@ -31,6 +31,10 @@ class Client extends Model
      */
     protected $fillable = [
         'name', 'email', 'phone', 'address',
+    ];
+
+    protected $columns = [
+        'name'=>'', 'email'=>'', 'phone'=>'', 'address'=>'',
     ];
 
     /*

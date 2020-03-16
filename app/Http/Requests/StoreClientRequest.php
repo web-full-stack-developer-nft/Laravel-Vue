@@ -25,8 +25,8 @@ class StoreClientRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone' => 'required|unique.clients|max:11|min:11',
-            'email' => 'required|email|unique.clients'
+            'phone' => 'required|unique:clients|max:11|min:11',
+            'email' => 'required|email|unique:clients'
         ];
     }
 

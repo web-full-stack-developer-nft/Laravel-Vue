@@ -6,19 +6,21 @@
 		</button>
 	</div> 
 	<t-modal ref="modal">
-        <div class="p-3">
-            <h2 class="mb-2">Crate Client</h2> 
-            <div class="my-1" v-for="(value,name, index) in form">
-                <p class="capitalize"> {{ value }} </p>
-                <!--<custom-input :value="value"></custom-input>-->
-                <t-input v-model="form.password" class="w-full"/>
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="store" @keydown="form.onKeydown($event)">
+            <div class="p-3">
+                <h2 class="mb-2">Crate Client</h2>
+                <div class="my-1" v-for="(value,name, index) in form.originalData">
+                    <p class="capitalize font-semibold"> {{ name }}</p>
+                    <t-input v-model="form[name]" :class="{ 'is-invalid': form.errors.has(name) }" class="w-full"/>
+                    <has-error :form="form" :field="name" class="mt-2 text-red-600 text-left font-semibold" />
+                </div>
+                <div class="mt-3 text-right">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" :loading="form.busy">
+                      Create
+                    </button>
+                </div>
             </div>
-            <div class="mt-3 text-right">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Create
-                </button>
-            </div>
-        </div>
+        </form>
     </t-modal>
 	<data-table
         :columns="columns"
@@ -112,13 +114,13 @@ export default {
     methods:{
     	async store () {
             // Submit the form.
-            const { data } = await this.form.post('/api/client/store')
+            const { data } = await this.form.post('/api/clients')
         }
     },
     created(){
         var self = this;
         axios.get('/api/clients/create').then(function (response) {
-            self.column=response.data;
+            self.form.originalData=response.data;
         }).catch(function (error) {
             console.log(error);
         }).then(function () {
