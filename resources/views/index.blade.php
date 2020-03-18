@@ -3,6 +3,7 @@ $config = [
     'appName' => config('app.name'),
     'ismobile' => 'd',
     'locale' => $locale = app()->getLocale(),
+    'base_url' => \URL::to('/'),
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
 ];

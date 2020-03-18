@@ -16,13 +16,6 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     $clients = Client::with('projects')->paginate(20);
-    //     return response($clients);
-    //     // return "Hello World";
-    // }
-
     public function index(Request $request)
     {   
         $length = $request->input('length');
@@ -35,6 +28,18 @@ class ClientController extends Controller
         $data = $query->paginate($length);
         
         return new DataTableCollectionResource($data);
+    }
+
+    public function all(Request $request)
+    {
+        $clients;
+        if ($request->has('status')) {
+            $clients = Client::where('status', $request->input('status'))->get();
+        }else {
+            $clients = Client::get();
+        }
+
+        return \response()->json($clients);
     }
 
     /**

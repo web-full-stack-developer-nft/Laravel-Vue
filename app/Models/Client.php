@@ -17,6 +17,9 @@ class Client extends Model
         ],
         'email' => [
             'searchable' => true,
+        ],
+        'phone' => [
+            'searchable' => true,
         ]
     ];
 

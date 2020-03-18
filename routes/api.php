@@ -49,38 +49,40 @@ Route::group([
     Route::resource('clients', 'Admin\ClientController')->except([
         'show', 'edit'
     ]);
+    Route::get('clients/all', 'Admin\ClientController@all');
+    
     Route::resource('projects', 'Admin\ProjectController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('issues', 'Admin\IssueController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('tasks', 'Admin\TaskController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     
     Route::resource('departments', 'Admin\DepartmentController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('designations', 'Admin\DesignationController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('notices', 'Admin\NoticeController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('weekends', 'Admin\WeekendController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('holidays', 'Admin\HolidayController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('issue_types', 'Admin\IssueTypeController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('statuses', 'Admin\StatusController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
     Route::resource('attendances', 'Admin\AttendanceController')->except([
-        'create', 'show', 'edit'
+        'show', 'edit'
     ]);
 }); // this should be the absolute last line of this file

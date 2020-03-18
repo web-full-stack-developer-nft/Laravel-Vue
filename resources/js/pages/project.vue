@@ -8,10 +8,21 @@
 	<t-modal ref="modal">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="store" @keydown="form.onKeydown($event)">
             <div class="p-3">
-                <h2 class="mb-2">Crate Client</h2>
+                <h2 class="mb-2">Crate Project</h2>
                 <div class="my-1" v-for="(value,name, index) in form.originalData" :key="index">
                     <p class="capitalize font-semibold"> {{ name }}</p>
-                    <t-input v-model="form[name]" :class="{ 'is-invalid': form.errors.has(name) }" class="w-full"/>
+                    <t-select 
+                        v-if="name === 'client'"
+                        v-model="form[name+'_id']"
+                        :options="clients"
+                        :class="{'is-invalid': form.errors.has(name)}"
+                        class="w-full"/>
+
+                    <t-input 
+                        v-else 
+                        v-model="form[name]" 
+                        :class="{ 'is-invalid': form.errors.has(name) }" 
+                        class="w-full"/>
                     <has-error :form="form" :field="name" class="mt-2 text-red-600 text-left font-semibold" />
                 </div>
                 <div class="mt-3 text-right">
@@ -25,7 +36,7 @@
 	<data-table
         :columns="columns"
         :classes="classes"
-        :url="base_url+'/api/clients'">
+        :url="base_url+'/api/projects'">
     </data-table>
 </div>
 </template>
@@ -43,6 +54,7 @@ export default {
                 email: '',
                 password: ''
             }),
+            clients: [],
             columns: [
                 {
                     label: 'ID',
@@ -55,8 +67,9 @@ export default {
                     orderable: true,
                 },
                 {
-                    label: 'Email',
-                    name: 'email',
+                    label: 'Client',
+                    name: 'client.name',
+                    columnName: 'client.name',
                     orderable: true,
                 },
             ],
@@ -116,21 +129,36 @@ export default {
     methods:{
     	async store () {
             // Submit the form.
-            const response = await this.form.post('/api/clients')
+            const response = await this.form.post('/api/projects');
             if (response.status === 200) {
-                alert('Stored');
+                showMessage(response.status, 'Project created successfully');
+                const index = this
             }
         },
+        async fetchClients() {
+            const response = await axios.get('/api/clients/all', {status: 1});
+            if (response.status === 200) {
+                this.clients = await response.data.map((client) => {
+                    return {
+                        value: client.id,
+                        text: client.name
+                    }
+                });
+            }
+        }
     },
     created(){
         var self = this;
-        axios.get('/api/clients/create').then(function (response) {
+        axios.get('/api/projects/create').then(function (response) {
             self.form.originalData=response.data;
         }).catch(function (error) {
             console.log(error);
         }).then(function () {
             // always executed
         });
-    }
+    },
+    mounted() {
+        this.fetchClients();
+    },
 }
 </script>

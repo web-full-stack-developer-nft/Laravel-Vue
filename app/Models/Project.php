@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
 
 class Project extends Model
 {
+    use LaravelVueDatatableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -14,6 +16,25 @@ class Project extends Model
      */
     protected $fillable = [
         'name', 'client_id',
+    ];
+
+    protected $dataTableRelationships = [
+        "belongsTo" => [
+            'client' => [
+                "model" => 'App\Models\Client',
+                'foreign_key' => 'client_id',
+                'columns' => [
+                    'name' => [
+                        'searchable' => true,
+                        'orderable' => true,
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    protected $columns = [
+        'name'=>'', 'client'=>'',
     ];
 
     /*
@@ -27,6 +48,11 @@ class Project extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+    public function getTableColumns() {
+        return $this->columns;;
+    }
+
     public function client()
     {
         return $this->belongsTo("App\Models\Client");

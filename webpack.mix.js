@@ -6,7 +6,7 @@ require('laravel-mix-postcss-config');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 mix.browserSync({
-	proxy: 'http://localhost:5000/',
+	proxy: 'http://localhost:8000/',
 	files: ["resources/css/main.css", "resources/js/**/*.vue"]
 });
 

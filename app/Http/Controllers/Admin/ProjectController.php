@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class ProjectController extends Controller
 {
@@ -15,12 +16,29 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::with('projects')->paginate(20);
-        return response()->json([
-            'projects' => $projects
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = Project::eloquentQuery(
+            $sortBy, 
+            $orderBy, 
+            $searchValue, [
+            'client',
         ]);
+
+        $data = $query->paginate($length);
+        
+        return new DataTableCollectionResource($data);
+    }
+
+    public function create()
+    {
+        $project=new Project();
+        return response($project->getTableColumns());
     }
 
     /**
@@ -33,9 +51,7 @@ class ProjectController extends Controller
     {
         if ($project = Project::create([
             'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
+            'client_id' => $request->client_id,
         ])) {
             return response()->json([
                 'project' => $project
@@ -54,9 +70,7 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
         $project->name = $request->name;
-        $project->phone = $request->phone;
-        $project->email = $request->email;
-        $project->address = $request->address;
+        $project->client_id = $request->client_id;
 
         if ($project->save()) {
             return response()->json([
