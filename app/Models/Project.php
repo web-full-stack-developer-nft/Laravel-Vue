@@ -18,6 +18,15 @@ class Project extends Model
         'name', 'client_id',
     ];
 
+    protected $dataTableColumns = [
+        'id' => [
+            'searchable' => false,
+        ],
+        'name' => [
+            'searchable' => true,
+        ],
+    ];
+
     protected $dataTableRelationships = [
         "belongsTo" => [
             'client' => [

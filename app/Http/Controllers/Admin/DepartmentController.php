@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Department;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class DepartmentController extends Controller
 {
@@ -14,12 +15,18 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departments = Department::paginate(20);
-        return response()->json([
-            'departments' => $departments
-        ]);
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = Department::eloquentQuery($sortBy, $orderBy, $searchValue);
+
+        $data = $query->paginate($length);
+        
+        return new DataTableCollectionResource($data);
     }
 
     /**
@@ -41,6 +48,12 @@ class DepartmentController extends Controller
                 'department' => $department
             ]);
         }
+    }
+
+    public function create()
+    {
+        $department=new Department();
+        return response($department->getTableColumns());
     }
 
     /**

@@ -6,6 +6,9 @@ import App from '~/components/App';
 import DataTable from 'laravel-vue-datatable';
 Vue.use(DataTable);
 
+// Import component
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 
 import '~/plugins';
 import '~/components';

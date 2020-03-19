@@ -16,6 +16,9 @@ export default [
   { path: '/task', name: 'home', component: page('task.vue') },
   { path: '/client', name: 'home', component: page('client.vue') },
   { path: '/project', name: 'home', component: page('project.vue') },
+  { path: '/department', name: 'home', component: page('department.vue') },
+  { path: '/designation', name: 'home', component: page('designation.vue') },
+  { path: '/status', name: 'home', component: page('status.vue') },
   { path: '/settings',
     component: page('settings/index.vue'),
     children: [

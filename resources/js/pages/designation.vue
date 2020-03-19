@@ -8,7 +8,7 @@
 	<t-modal ref="modal">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="storeOrUpdate" @keydown="form.onKeydown($event)">
             <div class="p-3">
-                <h2 class="mb-2">{{ updateData ? 'Update' : 'Create' }} Client</h2>
+                <h2 class="mb-2">{{ updateData ? 'Update' : 'Create' }} Designation</h2>
                 <div class="my-1" v-for="(value,name, index) in form.originalData" :key="index">
                     <p class="capitalize font-semibold"> {{ name }}</p>
                     <t-input v-model="form[name]" :class="{ 'is-invalid': form.errors.has(name) }" class="w-full"/>
@@ -25,8 +25,8 @@
 	<data-table
         :columns="columns"
         :classes="classes"
-        :data="clients"
-        :url="base_url+'/api/clients'"
+        :data="designations"
+        :url="base_url+'/api/designations'"
         @loading="isLoading = true"
         @finishedLoading="isLoading = false">
     </data-table>
@@ -51,22 +51,19 @@ export default {
 	data() {
         return {
             base_url: base_url,
-            url: base_url+'/api/clients',
+            url: base_url+'/api/designations',
             tableProps: {
                 search: '',
                 length: 10,
                 column: 'id',
                 dir: 'asc'
             },
-            clients: {},
+            designations: {},
             updateData: false,
             isLoading: false,
             form: new Form({
-                name: '',
                 email: '',
-                id: '',
-                phone: '',
-                address: ''
+                password: ''
             }),
             columns: [
                 {
@@ -77,21 +74,6 @@ export default {
                 {
                     label: 'Name',
                     name: 'name',
-                    orderable: true,
-                },
-                {
-                    label: 'Contact No.',
-                    name: 'phone',
-                    orderable: true,
-                },
-                {
-                    label: 'Email',
-                    name: 'email',
-                    orderable: true,
-                },
-                {
-                    label: 'Address',
-                    name: 'address',
                     orderable: true,
                 },
                 {
@@ -174,48 +156,43 @@ export default {
             this.getData(this.url);
             this.updateData = false;
             this.form.name = '';
-            this.form.phone = '';
-            this.form.email = '';
             this.form.id = '';
             this.errors = {};
         },
     	async storeOrUpdate () {
-            // Submit the form.
+             // Submit the form.
             if(this.updateData) {
-                const response = await this.form.put('/api/clients/'+this.form.id);
+                const response = await this.form.put('/api/designations/'+this.form.id);
                 if (response.status === 200) {
                     this.cleanForm();
-                    showMessage(response.status, 'Client updated successfully');
+                    showMessage(response.status, 'Designation updated successfully');
                 }
             }else {
-                const response = await this.form.post('/api/clients');
+                const response = await this.form.post('/api/designations');
                 if (response.status === 200) {
                     this.cleanForm();
-                    showMessage(response.status, 'Client created successfully');
+                    showMessage(response.status, 'Designation created successfully');
                 }
             }
         },
-         async displayRow(data) {
+        async displayRow(data) {
             this.updateData = true;
             this.$refs.modal.show();
             this.form.name = data.name;
             this.form.id = data.id;
-            this.form.phone = data.phone;
-            this.form.address = data.address;
-            this.form.email = data.email;
         },
         async getData(url = this.url, options = this.tableProps) {
             const response = await axios.get(url, {
                 params: options
             });
             if(response.status === 200) {
-                this.clients = response.data;
+                this.designations = response.data;
             }
         }
     },
     created(){
         var self = this;
-        axios.get('/api/clients/create').then(function (response) {
+        axios.get('/api/designations/create').then(function (response) {
             self.form.originalData=response.data;
         }).catch(function (error) {
             console.log(error);

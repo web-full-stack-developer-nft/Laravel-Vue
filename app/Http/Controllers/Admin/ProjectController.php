@@ -28,6 +28,7 @@ class ProjectController extends Controller
             $orderBy, 
             $searchValue, [
             'client',
+            'name',
         ]);
 
         $data = $query->paginate($length);

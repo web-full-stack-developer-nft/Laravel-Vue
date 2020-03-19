@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Status;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class StatusController extends Controller
 {
@@ -14,12 +15,23 @@ class StatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $statuses = Status::paginate(20);
-        return response()->json([
-            'statuses' => $statuses
-        ]);
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = Status::eloquentQuery($sortBy, $orderBy, $searchValue);
+
+        $data = $query->paginate($length);
+        return new DataTableCollectionResource($data);
+    }
+
+    public function create()
+    {
+        $status=new Status();
+        return response($status->getTableColumns());
     }
 
     /**

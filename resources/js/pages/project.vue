@@ -6,9 +6,9 @@
 		</button>
 	</div> 
 	<t-modal ref="modal">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="store" @keydown="form.onKeydown($event)">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="storeOrUpdate" @keydown="form.onKeydown($event)">
             <div class="p-3">
-                <h2 class="mb-2">Crate Project</h2>
+                <h2 class="mb-2">{{ updateData ? 'Update' : 'Create' }} Project</h2>
                 <div class="my-1" v-for="(value,name, index) in form.originalData" :key="index">
                     <p class="capitalize font-semibold"> {{ name }}</p>
                     <t-select 
@@ -27,7 +27,7 @@
                 </div>
                 <div class="mt-3 text-right">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" :loading="form.busy">
-                      Create
+                      {{ updateData ? 'Update' : 'Create' }}
                     </button>
                 </div>
             </div>
@@ -36,23 +36,46 @@
 	<data-table
         :columns="columns"
         :classes="classes"
-        :url="base_url+'/api/projects'">
+        :url="base_url+'/api/projects'"
+        :data="projects"
+        @loading="isLoading = true"
+        @finishedLoading="isLoading = false">
     </data-table>
+    <loading
+        :is-full-page="true"
+        :active.sync="isLoading">
+    </loading>
 </div>
 </template>
 
 <script>
-import Form from 'vform'
-import axios from 'axios'
+import Loading from 'vue-loading-overlay';
+import EditButon from '../buttons/EditButton.vue';
+import Form from 'vform';
+import axios from 'axios';
 export default {
-  	middleware: 'auth',
+    middleware: 'auth',
+    components: {
+        EditButon,
+        Loading,
+    },
 	data() {
         return {
             base_url: base_url,
-            
+            url: base_url+'/api/projects',
+            tableProps: {
+                search: '',
+                length: 10,
+                column: 'id',
+                dir: 'asc'
+            },
+            projects: {},
+            updateData: false,
+            isLoading: false,
             form: new Form({
-                email: '',
-                password: ''
+                name: '',
+                id: '',
+                client_id: {},
             }),
             clients: [],
             columns: [
@@ -71,6 +94,26 @@ export default {
                     name: 'client.name',
                     columnName: 'client.name',
                     orderable: true,
+                },
+                {
+                    label: '',
+                    name: 'Edit',
+                    orderable: false,
+                    classes: {
+                        'btn': true,
+                        'btn-blue': true,
+                        'bg-blue-500': true,
+                        'hover:bg-blue-700': true,
+                        'py-2': true,
+                        'text-white': true,
+                        'font-bold': true,
+                        'px-4': true,
+                        'rounded': true,
+                        'float-right': true
+                    },
+                    event: 'click',
+                    handler: this.displayRow,
+                    component: EditButon
                 },
             ],
             classes: { 
@@ -127,12 +170,29 @@ export default {
         }
     },
     methods:{
-    	async store () {
+        cleanForm() {
+            this.$refs.modal.hide();
+            this.getData(this.url);
+            this.updateData = false;
+            this.form.name = '';
+            this.form.id = '';
+            this.form.client_id = '';
+            this.errors = {};
+        },
+    	async storeOrUpdate () {
             // Submit the form.
-            const response = await this.form.post('/api/projects');
-            if (response.status === 200) {
-                showMessage(response.status, 'Project created successfully');
-                const index = this
+            if(this.updateData) {
+                const response = await this.form.put('/api/projects/'+this.form.id);
+                if (response.status === 200) {
+                    this.cleanForm();
+                    showMessage(response.status, 'Project updated successfully');
+                }
+            }else {
+                const response = await this.form.post('/api/projects');
+                if (response.status === 200) {
+                    this.cleanForm();
+                    showMessage(response.status, 'Project created successfully');
+                }
             }
         },
         async fetchClients() {
@@ -144,6 +204,21 @@ export default {
                         text: client.name
                     }
                 });
+            }
+        },
+        async displayRow(data) {
+            this.updateData = true;
+            this.$refs.modal.show();
+            this.form.name = data.name;
+            this.form.id = data.id;
+            this.form.client_id = data.client_id;
+        },
+        async getData(url = this.url, options = this.tableProps) {
+            const response = await axios.get(url, {
+                params: options
+            });
+            if(response.status === 200) {
+                this.projects = response.data;
             }
         }
     },

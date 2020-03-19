@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Designation;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class DesignationController extends Controller
 {
@@ -14,12 +15,17 @@ class DesignationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $designations = Designation::paginate(20);
-        return response()->json([
-            'designations' => $designations
-        ]);
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = Designation::eloquentQuery($sortBy, $orderBy, $searchValue);
+
+        $data = $query->paginate($length);
+        return new DataTableCollectionResource($data);
     }
 
     /**
@@ -41,6 +47,12 @@ class DesignationController extends Controller
                 'designation' => $designation
             ]);
         }
+    }
+
+    public function create()
+    {
+        $designation=new Designation();
+        return response($designation->getTableColumns());
     }
 
     /**

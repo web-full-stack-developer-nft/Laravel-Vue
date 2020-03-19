@@ -8,7 +8,7 @@ class Client extends Model
 {
     use LaravelVueDatatableTrait;
 
-     protected $dataTableColumns = [
+    protected $dataTableColumns = [
         'id' => [
             'searchable' => false,
         ],
@@ -20,7 +20,13 @@ class Client extends Model
         ],
         'phone' => [
             'searchable' => true,
+        ],
+        'address' => [
+            'searchable' => true,
         ]
+    ];
+    protected $columns = [
+        'name'=>'', 'email'=>'', 'phone'=>'', 'address'=>'',
     ];
 
     public function getTableColumns() {
@@ -34,10 +40,6 @@ class Client extends Model
      */
     protected $fillable = [
         'name', 'email', 'phone', 'address',
-    ];
-
-    protected $columns = [
-        'name'=>'', 'email'=>'', 'phone'=>'', 'address'=>'',
     ];
 
     /*
