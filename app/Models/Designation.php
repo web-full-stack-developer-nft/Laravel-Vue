@@ -17,12 +17,13 @@ class Designation extends Model
             'searchable' => true,
         ],
     ];
+    
     protected $columns = [
         'name'=>'',
     ];
 
     public function getTableColumns() {
-        return $this->columns;;
+        return $this->columns;
     }
     /**
      * The attributes that are mass assignable.

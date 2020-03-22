@@ -18,12 +18,13 @@ class Status extends Model
             'searchable' => true,
         ],
     ];
+
     protected $columns = [
         'name'=>'',
     ];
 
     public function getTableColumns() {
-        return $this->columns;;
+        return $this->columns;
     }
 
     protected $fillable = [
