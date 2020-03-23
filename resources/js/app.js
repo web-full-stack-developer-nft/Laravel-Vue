@@ -5,7 +5,9 @@ import i18n from '~/plugins/i18n';
 import App from '~/components/App';
 import DataTable from 'laravel-vue-datatable';
 Vue.use(DataTable);
-
+import vuescroll from 'vuescroll';
+ 
+Vue.use(vuescroll)
 // Import component
 import 'vue-loading-overlay/dist/vue-loading.css';
 

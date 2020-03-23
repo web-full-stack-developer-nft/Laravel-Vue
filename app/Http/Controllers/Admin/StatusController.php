@@ -28,6 +28,11 @@ class StatusController extends Controller
         return new DataTableCollectionResource($data);
     }
 
+    public function status()
+    {
+       return Status::with('tasks')->get();
+    }
+
     public function create()
     {
         $status=new Status();

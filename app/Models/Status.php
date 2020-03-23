@@ -46,6 +46,11 @@ class Status extends Model
         return $this->belongsTo("App\Models\Issue");
     }
 
+    public function tasks()
+    {
+        return $this->HasMany("App\Models\Task");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

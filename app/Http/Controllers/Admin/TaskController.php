@@ -34,7 +34,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         if ($task = Task::create([
-            'task_name' => $request->task_name,
+            'name' => $request->name,
             'user_id' => $request->user_id,
             'issue_id' => $request->issue_id,
             'start_date' => $request->start_date,
@@ -58,7 +58,7 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, $id)
     {
         $task = Task::find($id);
-        $task->task_name = $request->task_name;
+        $task->name = $request->name;
         $task->user_id = $request->user_id;
         $task->issue_id = $request->issue_id;
         $task->start_date = $request->start_date;
