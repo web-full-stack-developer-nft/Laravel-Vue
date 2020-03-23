@@ -42,6 +42,18 @@ class ProjectController extends Controller
         return response($project->getTableColumns());
     }
 
+    public function all(Request $request)
+    {
+        $projects;
+        if ($request->has('status')) {
+            $projects = Project::where('status', $request->input('status'))->get();
+        }else {
+            $projects = Project::get();
+        }
+
+        return \response()->json($projects);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

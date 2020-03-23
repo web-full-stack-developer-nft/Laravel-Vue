@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\IssueType;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class IssueTypeController extends Controller
 {
@@ -14,12 +15,35 @@ class IssueTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $issue_types = IssueType::paginate(20);
-        return response()->json([
-            'issue_types' => $issue_types
-        ]);
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = IssueType::eloquentQuery($sortBy, $orderBy, $searchValue);
+
+        $data = $query->paginate($length);
+        return new DataTableCollectionResource($data);
+    }
+
+    public function all(Request $request)
+    {
+        $issue_types;
+        if ($request->has('status')) {
+            $issue_types = IssueType::where('status', $request->input('status'))->get();
+        }else {
+            $issue_types = IssueType::get();
+        }
+
+        return \response()->json($issue_types);
+    }
+
+    public function create()
+    {
+        $issueType=new IssueType();
+        return response($issueType->getTableColumns());
     }
 
     /**

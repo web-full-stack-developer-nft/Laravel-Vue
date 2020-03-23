@@ -29,6 +29,18 @@ class DepartmentController extends Controller
         return new DataTableCollectionResource($data);
     }
 
+    public function all(Request $request)
+    {
+        $departments;
+        if ($request->has('status')) {
+            $departments = Department::where('status', $request->input('status'))->get();
+        }else {
+            $departments = Department::get();
+        }
+
+        return \response()->json($departments);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

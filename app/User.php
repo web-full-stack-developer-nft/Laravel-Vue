@@ -105,4 +105,10 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     {
         return [];
     }
+
+
+    public function issues()
+    {
+        return $this->hasMany("App\Models\Issue", "created_by");
+    }
 }

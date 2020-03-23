@@ -67,6 +67,11 @@ class Project extends Model
         return $this->belongsTo("App\Models\Client");
     }
 
+    public function issues()
+    {
+        return $this->hasMany("App\Models\Issue");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

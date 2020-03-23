@@ -6,7 +6,7 @@ import App from '~/components/App';
 import DataTable from 'laravel-vue-datatable';
 Vue.use(DataTable);
 import vuescroll from 'vuescroll';
- import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect'
 
   // register globally
   Vue.component('multiselect', Multiselect)

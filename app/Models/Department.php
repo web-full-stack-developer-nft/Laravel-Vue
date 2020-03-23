@@ -46,6 +46,11 @@ class Department extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function issues()
+    {
+        return $this->hasMany("App\Models\Issue");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

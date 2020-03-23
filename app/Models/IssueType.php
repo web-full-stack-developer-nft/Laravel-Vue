@@ -3,9 +3,53 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
 
 class IssueType extends Model
 {
+
+
+    use LaravelVueDatatableTrait;
+
+    protected $dataTableColumns = [
+        'id' => [
+            'searchable' => false,
+        ],
+        'name' => [
+            'searchable' => true,
+        ],
+    ];
+    protected $columns = [
+        'name'=>'',
+    ];
+
+    protected $dataTableRelationships = [
+        "hasMany" => [
+            'issues' => [
+                "model" => 'App\Models\Issue',
+                'foreign_key' => 'issue_type_id',
+                'columns' => [
+                    'name' => [
+                        'searchable' => true,
+                        'orderable' => true,
+                    ],
+                ],
+            ],
+        ],
+    ];
+
+    public function getTableColumns() {
+        return $this->columns;;
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -19,7 +63,7 @@ class IssueType extends Model
     */
     public function issues()
     {
-        return $this->belongsTo("App\Models\Issue");
+        return $this->hasMany("App\Models\Issue");
     }
 
     /*

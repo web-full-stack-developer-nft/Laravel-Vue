@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateIssueRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Issue;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class IssueController extends Controller
 {
@@ -15,14 +16,33 @@ class IssueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $issues = Issue::with([
-            'issue', 'issue_type', 'status'
-        ])->paginate(20);
-        return response()->json([
-            'issues' => $issues
-        ]);
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = Issue::eloquentQuery(
+            $sortBy, 
+            $orderBy, 
+            $searchValue, [
+                'project',
+                'client',
+                'department',
+                'issue_type',
+                'user',
+                'status',
+            ]);
+
+        $data = $query->paginate($length);
+        return new DataTableCollectionResource($data);
+    }
+
+    public function create()
+    {
+        $issue=new Issue();
+        return response($issue->getTableColumns());
     }
 
     /**
@@ -35,9 +55,11 @@ class IssueController extends Controller
     {
         if ($issue = Issue::create([
             'title' => $request->title,
+            'client_id' => $request->client_id,
             'project_id' => $request->project_id,
+            'department_id' => $request->department_id,
             'issue_type_id' => $request->issue_type_id,
-            'status_id' => $request->status_id,
+            'status_id' => 1,
             'created_by' => auth()->user()->id
         ])) {
             return response()->json([
@@ -58,8 +80,12 @@ class IssueController extends Controller
         $issue = Issue::find($id);
         $issue->title = $request->title;
         $issue->project_id = $request->project_id;
+        $issue->client_id = $request->client_id;
+        $issue->department_id = $request->department_id;
+        $issue->desc = $request->desc;
         $issue->issue_type_id = $request->issue_type_id;
         $issue->status_id = $request->status_id;
+        $issue->updated_at = date('Y-m-d H:i:s');
 
         if ($issue->save()) {
             return response()->json([

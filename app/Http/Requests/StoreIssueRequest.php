@@ -25,9 +25,8 @@ class StoreIssueRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'project_id' => 'required',
+            'department_id' => 'required',
             'issue_type_id' => 'required',
-            'status_id' => 'required', 
         ];
     }
 
@@ -40,9 +39,8 @@ class StoreIssueRequest extends FormRequest
     {
         return [
             'title.required' => 'Issue title is required',
-            'project_id.required'  => 'Project is required',
+            'department_id.required'  => 'Department is required',
             'issue_type_id.required'  => 'Issue type is required',
-            'status_id.required'  => 'Issue status is required',
         ];
     }
 }

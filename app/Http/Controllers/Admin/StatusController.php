@@ -32,6 +32,17 @@ class StatusController extends Controller
     {
        return Status::with('tasks')->get();
     }
+    public function all(Request $request)
+    {
+        $statuses;
+        if ($request->has('status')) {
+            $statuses = Status::where('status', $request->input('status'))->get();
+        }else {
+            $statuses = Status::get();
+        }
+
+        return \response()->json($statuses);
+    }
 
     public function create()
     {

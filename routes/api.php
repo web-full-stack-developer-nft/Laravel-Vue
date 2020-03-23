@@ -55,6 +55,8 @@ Route::group([
     Route::resource('projects', 'Admin\ProjectController')->except([
         'show', 'edit'
     ]);
+    Route::get('projects/all', 'Admin\ProjectController@all');
+
     Route::resource('issues', 'Admin\IssueController')->except([
         'show', 'edit'
     ]);
@@ -65,6 +67,8 @@ Route::group([
     Route::resource('departments', 'Admin\DepartmentController')->except([
         'show', 'edit'
     ]);
+    Route::get('departments/all', 'Admin\DepartmentController@all');
+
     Route::resource('designations', 'Admin\DesignationController')->except([
         'show', 'edit'
     ]);
@@ -80,9 +84,14 @@ Route::group([
     Route::resource('issue_types', 'Admin\IssueTypeController')->except([
         'show', 'edit'
     ]);
+    Route::get('issue_types/all', 'Admin\IssueTypeController@all');
+
     Route::resource('statuses', 'Admin\StatusController')->except([
         'show', 'edit'
     ]);
+    Route::get('statuses/all', 'Admin\StatusController@all');
+
+
     Route::resource('attendances', 'Admin\AttendanceController')->except([
         'show', 'edit'
     ]);

@@ -59,6 +59,11 @@ class Client extends Model
         return $this->hasMany("App\Models\Project");
     }
 
+    public function issues()
+    {
+        return $this->hasMany("App\Models\Issue");
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
