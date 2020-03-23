@@ -12,7 +12,7 @@ class CreateIssuesTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('issues_types', function (Blueprint $table) {
+        Schema::create('issue_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->timestamps();
@@ -26,6 +26,6 @@ class CreateIssuesTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('issues_types');
+        Schema::dropIfExists('issue_types');
     }
 }
