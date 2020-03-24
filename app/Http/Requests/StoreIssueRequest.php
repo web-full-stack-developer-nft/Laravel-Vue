@@ -25,8 +25,10 @@ class StoreIssueRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'department_id' => 'required',
+            // 'department_id' => 'required',
+            'desc' => 'required',
             'issue_type_id' => 'required',
+            'user' => 'required',
         ];
     }
 

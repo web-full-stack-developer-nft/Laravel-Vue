@@ -70,9 +70,9 @@
 		    	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">
 		        	Details *
 		      	</label>
-				<textarea v-model="form.details" type="text" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Details">
+				<textarea v-model="form.desc" type="text" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Details">
 				</textarea>
-			    <has-error :form="form" field="details" class="mt-2 text-red-600 text-left font-semibold" />
+			    <has-error :form="form" field="desc" class="mt-2 text-red-600 text-left font-semibold" />
 		    </div>
 		    <div>
 		    	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">

@@ -53,14 +53,30 @@ class IssueController extends Controller
      */
     public function store(StoreIssueRequest $request)
     {
-        if ($issue = Issue::create([
+        if(isset($request->value)){
+            $client_id=$request->value['id'];
+        }else{
+            $client_id=$request->project['client_id'];
+        }
+
+        $issue = Issue::create([
             'title' => $request->title,
-            'client_id' => $request->client_id,
-            'project_id' => $request->project_id,
+            'client_id' => $client_id,
+            'project_id' => $request->project['id'],
+            'desc' => $request->desc,
             'issue_type_id' => $request->issue_type_id,
             'status_id' => 1,
             'created_by' => auth()->user()->id
-        ])) {
+        ]);
+
+        foreach ($request->user as $key => $value) {
+            // $issue->user()->create({
+            //     'user_id'=>$value->id
+            // })
+            \DB::insert('insert into issue_user (user_id, issue_id) values (?, ?)', [$value['id'], $issue->id]);
+        }
+
+        if ($issue) {
             return response()->json([
                 'issue' => $issue
             ]);

@@ -1,9 +1,9 @@
 const path = require('path')
 const fs = require('fs-extra')
 const mix = require('laravel-mix')
-require('laravel-mix-versionhash')
+// require('laravel-mix-versionhash')
 require('laravel-mix-postcss-config');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+// // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 mix.browserSync({
 	proxy: 'http://localhost:8000/',

@@ -131,7 +131,7 @@ class Issue extends Model
 
     public function user()
     {
-        return $this->belongsTo("App\User",'created_by');
+        return $this->belongsToMany("App\User");
     }
 
     public function issue_type()
