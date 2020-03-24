@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateClientRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Issue;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class ClientController extends Controller
@@ -46,6 +47,11 @@ class ClientController extends Controller
     {
         $clients = Client::where('name','like','%'.$query.'%')->get();
         return $clients;
+    }
+
+    public function issue($clientid)
+    {
+        return Issue::where('client_id',$clientid)->get();
     }
 
     /**
