@@ -57,7 +57,6 @@ class IssueController extends Controller
             'title' => $request->title,
             'client_id' => $request->client_id,
             'project_id' => $request->project_id,
-            'department_id' => $request->department_id,
             'issue_type_id' => $request->issue_type_id,
             'status_id' => 1,
             'created_by' => auth()->user()->id
