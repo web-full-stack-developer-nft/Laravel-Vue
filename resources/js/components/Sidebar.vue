@@ -89,7 +89,7 @@
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
-                <router-link to="issue" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <router-link to="issues" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Issues</span>
                 </router-link>
             </li>

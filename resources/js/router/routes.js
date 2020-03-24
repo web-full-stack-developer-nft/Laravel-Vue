@@ -20,6 +20,7 @@ export default [
   { path: '/department', name: 'home', component: page('department.vue') },
   { path: '/designation', name: 'home', component: page('designation.vue') },
   { path: '/status', name: 'home', component: page('status.vue') },
+  { path: '/issues', name: 'home', component: page('issues.vue') },
   { path: '/issue', name: 'home', component: page('issue.vue') },
   { path: '/issue-type', name: 'home', component: page('issue-type.vue') },
   { path: '/settings',

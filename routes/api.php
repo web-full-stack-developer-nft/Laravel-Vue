@@ -51,6 +51,7 @@ Route::group([
         'show', 'edit'
     ]);
     Route::get('clients/all', 'Admin\ClientController@all');
+    Route::get('clientsearch/{query}', 'Admin\ClientController@query');
     
     Route::resource('projects', 'Admin\ProjectController')->except([
         'show', 'edit'

@@ -42,6 +42,12 @@ class ClientController extends Controller
         return \response()->json($clients);
     }
 
+    public function query($query='')
+    {
+        $clients = Client::where('name','like','%'.$query.'%')->get();
+        return $clients;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
