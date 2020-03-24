@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
+use App\Models\Issue;
 
 class ProjectController extends Controller
 {
@@ -34,6 +35,17 @@ class ProjectController extends Controller
         $data = $query->paginate($length);
         
         return new DataTableCollectionResource($data);
+    }
+
+    public function query($query='')
+    {
+        $clients = Project::where('name','like','%'.$query.'%')->get();
+        return $clients;
+    }
+
+    public function issue($project_id)
+    {
+        return Issue::where('project_id',$project_id)->get();
     }
 
     public function create()

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\User;
 class ProfileController extends Controller
 {
     /**
@@ -23,5 +23,10 @@ class ProfileController extends Controller
         ]);
 
         return tap($user)->update($request->only('name', 'email'));
+    }
+
+    public function users()
+    {
+        return User::all();
     }
 }

@@ -52,7 +52,9 @@ Route::group([
     ]);
     Route::get('clients/all', 'Admin\ClientController@all');
     Route::get('clientsearch/{query}', 'Admin\ClientController@query');
+    Route::get('projectsearch/{query}', 'Admin\ProjectController@query');
     Route::get('issueforslient/{id}', 'Admin\ClientController@issue');
+    Route::get('issueforprojectsearch/{id}', 'Admin\ProjectController@issue');
     
     Route::resource('projects', 'Admin\ProjectController')->except([
         'show', 'edit'
@@ -91,10 +93,10 @@ Route::group([
     Route::resource('statuses', 'Admin\StatusController')->except([
         'show', 'edit'
     ]);
-    Route::get('statuses/all', 'Admin\StatusController@all');
-
-
     Route::resource('attendances', 'Admin\AttendanceController')->except([
         'show', 'edit'
     ]);
+
+    Route::get('statuses/all', 'Admin\StatusController@all');
+    Route::get('users', 'Settings\ProfileController@users');
 }); // this should be the absolute last line of this file
