@@ -57,7 +57,7 @@
             </li>
             <li class="my-2 md:my-0">
                 <router-link to="client" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Clients</span>
+                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block active">Clients</span>
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
@@ -123,9 +123,11 @@
 <script>
     import { mapGetters } from 'vuex'
     export default{
-        computed: mapGetters({
-            ismobile: 'sidebar/ismobile'
-        }),
+        computed: {
+            ...mapGetters({
+                ismobile: 'sidebar/ismobile'
+            }),
+        },
         methods:{
             taggleview(){
                 this.$store.dispatch('sidebar/setview')

@@ -5,8 +5,8 @@
 		  Create
 		</button>
 	</div> 
-	<t-modal ref="modal">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="storeOrUpdate" @keydown="form.onKeydown($event)">
+	<t-modal ref="modal" class="curdmodel">
+        <form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="storeOrUpdate" @keydown="form.onKeydown($event)">
             <div class="p-3">
                 <h2 class="mb-2">{{ updateData ? 'Update' : 'Create' }} Project</h2>
                 <div class="my-1" v-for="(value,name, index) in form.originalData" :key="index">

@@ -51,7 +51,7 @@ class ClientController extends Controller
 
     public function issue($clientid)
     {
-        return Issue::where('client_id',$clientid)->get();
+        return Issue::with('status')->where('client_id',$clientid)->get();
     }
 
     /**

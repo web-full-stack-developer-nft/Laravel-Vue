@@ -77,6 +77,7 @@ class IssueController extends Controller
         }
 
         if ($issue) {
+            $issue->status;
             return response()->json([
                 'issue' => $issue
             ]);

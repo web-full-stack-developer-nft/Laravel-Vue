@@ -5,7 +5,7 @@
 		  {{ updateData ? 'Update' : 'Create' }}
 		</button>
 	</div> 
-	<t-modal ref="modal">
+	<t-modal ref="modal" class="curdmodel">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="storeOrUpdate" @keydown="form.onKeydown($event)">
             <div class="p-3">
                 <h2 class="mb-2">{{ updateData ? 'Update' : 'Create' }} Designation</h2>

@@ -100,7 +100,7 @@
 		</form>
 	</div>
 	<div class="w-1/2 p-3">
-		<h2 class="font-bold bg-gray-600 p-2">Issue Lists</h2>
+		<h2 class="font-bold bg-blue-700 p-2 text-white">Issue Lists</h2>
 		<table class="w-full bg-white" v-if="issues">
 		   <tbody>
 		   		<tr>
@@ -110,26 +110,31 @@
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Title</th>
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Details</th>
 		   		</tr>
-                <tr v-for="issue in issues">
+                <tr v-for="(issue,index) in issues" @click="$refs.modal.show()" class="cursor-pointer">
                     <td class="p-2 border border-gray-200 text-sm">
-                        Admin
+                        {{ index+1 }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        Admin
+                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="issue.status.name=='pending'">{{ issue.status.name }}</span>
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        Admin
+                        {{ issue.created_at }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        Admin
+                        {{ issue.title }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        Admin
+                        {{ issue.desc }}
                     </td>
                 </tr>
             </tbody>
         </table>
 	</div>
+
+	<t-modal ref="modal" class="curdmodel">
+      
+    </t-modal>
+
 </div>
 </template>
 
@@ -160,7 +165,7 @@ export default {
   methods: {
   	async create (){
 		const { data } = await this.form.post('api/issues')
-		console.log(data);
+		this.issues.push(data.issue)
   	},
     async asyncFind(query){
     	var self = this;

@@ -8,8 +8,8 @@ Vue.use(DataTable);
 import vuescroll from 'vuescroll';
 import Multiselect from 'vue-multiselect'
 
-  // register globally
-  Vue.component('multiselect', Multiselect)
+// register globally
+Vue.component('multiselect', Multiselect)
 Vue.use(vuescroll)
 // Import component
 import 'vue-loading-overlay/dist/vue-loading.css';
