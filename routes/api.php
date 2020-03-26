@@ -62,7 +62,7 @@ Route::group([
     Route::get('projects/all', 'Admin\ProjectController@all');
 
     Route::resource('issues', 'Admin\IssueController')->except([
-        'show', 'edit'
+       'edit'
     ]);
     Route::resource('tasks', 'Admin\TaskController')->except([
         'show', 'edit'

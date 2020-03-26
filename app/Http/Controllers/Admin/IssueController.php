@@ -84,6 +84,13 @@ class IssueController extends Controller
         }
     }
 
+    public function show(Issue $issue)
+    {   
+        $issue->client;
+        $issue->status;
+        return $issue;
+    }
+
     /**
      * Update the specified resource in storage.
      *

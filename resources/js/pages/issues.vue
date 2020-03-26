@@ -110,7 +110,7 @@
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Title</th>
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Details</th>
 		   		</tr>
-                <tr v-for="(issue,index) in issues" @click="$refs.modal.show()" class="cursor-pointer">
+                <tr v-for="(issue,index) in issues" @click="fatchdata(issue.id)" class="cursor-pointer">
                     <td class="p-2 border border-gray-200 text-sm">
                         {{ index+1 }}
                     </td>
@@ -132,7 +132,7 @@
 	</div>
 
 	<t-modal ref="modal" class="curdmodel">
-      
+      {{ singleissue }}
     </t-modal>
 
 </div>
@@ -152,6 +152,7 @@ export default {
 	    projects:[],
 	    issue_types:[],
 	    users:[],
+	    singleissue:[],
       	form: new Form({
 	    	value: null,
 	    	project:null,
@@ -163,6 +164,12 @@ export default {
     }
   },
   methods: {
+  	async fatchdata(id){
+		const { data } = await axios.get('api/issues/'+id)
+		this.singleissue=data
+		console.log(data);
+  		this.$refs.modal.show()
+  	},
   	async create (){
 		const { data } = await this.form.post('api/issues')
 		this.issues.push(data.issue)
