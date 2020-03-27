@@ -15,6 +15,11 @@ class CreateIssuecommentsTable extends Migration
     {
         Schema::create('issuecomments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id');
+            $table->integer('issue_id');
+            $table->integer('is_reply')->nullable();
+            $table->integer('parant_id')->nullable();
+            $table->text('comment');
             $table->timestamps();
         });
     }

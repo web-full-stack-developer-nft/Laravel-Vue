@@ -64,6 +64,9 @@ Route::group([
     Route::resource('issues', 'Admin\IssueController')->except([
        'edit'
     ]);
+
+    Route::resource('issuecomment', 'Admin\IssuecommentController');
+
     Route::resource('tasks', 'Admin\TaskController')->except([
         'show', 'edit'
     ]);
@@ -71,6 +74,8 @@ Route::group([
     Route::resource('departments', 'Admin\DepartmentController')->except([
         'show', 'edit'
     ]);
+
+
     Route::get('departments/all', 'Admin\DepartmentController@all');
 
     Route::resource('designations', 'Admin\DesignationController')->except([

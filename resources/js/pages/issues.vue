@@ -133,6 +133,17 @@
 
 	<t-modal ref="modal" class="curdmodel">
       {{ singleissue }}
+
+      <br>
+
+      {{ comments }}
+		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
+	        <div>
+	        
+				<textarea v-model="comment" v-on:keyup="createcommment" type="text" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Comment">
+				</textarea>
+		    </div>
+		</form>
     </t-modal>
 
 </div>
@@ -141,29 +152,45 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
-  middleware: 'auth',
-  data () {
-    return {
-	    options: [],
-	    isLoading: false,
-	    issues:[],
-	    isLoadingproject:false,
-	    projects:[],
-	    issue_types:[],
-	    users:[],
-	    singleissue:[],
-      	form: new Form({
-	    	value: null,
-	    	project:null,
-	    	user:[],
-	    	title:'',
-	    	issue_type_id:'',
-	    	details:''
-		}),
-    }
-  },
+  	middleware: 'auth',
+    data () {
+    	return {
+		    options: [],
+		    isLoading: false,
+		    issues:[],
+		    isLoadingproject:false,
+		    projects:[],
+		    issue_types:[],
+		    users:[],
+		    singleissue:[],
+	      	form: new Form({
+		    	value: null,
+		    	project:null,
+		    	user:[],
+		    	title:'',
+		    	issue_type_id:'',
+		    	details:''
+			}),
+			comment:'',
+    	}
+ 	},
+  	computed: mapGetters({
+		authuser: 'auth/user'
+	}),
   methods: {
+  	async createcommment(e){
+  		if (e.keyCode === 13) {
+  			this.singleissue.comments.push({comment:this.comment,user:this.authuser});
+			await axios.post('api/issuecomment',{
+												    user_id: this.authuser.id,
+												    issue_id: this.singleissue.id,
+												    comment: this.comment,
+												})
+  			this.comment=''
+  		}
+  	},
   	async fatchdata(id){
 		const { data } = await axios.get('api/issues/'+id)
 		this.singleissue=data

@@ -88,6 +88,7 @@ class IssueController extends Controller
     {   
         $issue->client;
         $issue->status;
+        $issue->comments;
         return $issue;
     }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Issuecomment;
+use App\Models\Issuecomment;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 class IssuecommentController extends Controller
 {
     /**
@@ -34,8 +34,10 @@ class IssuecommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        return Issuecomment::create(
+            $request->all()
+        );
     }
 
     /**
