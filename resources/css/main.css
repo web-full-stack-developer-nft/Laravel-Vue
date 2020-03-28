@@ -17,3 +17,8 @@
 .router-link-active{
 	background: #f1f1f1;
 }
+.vue-avatar--wrapper{
+	width: 30px!important;
+    height: 30px!important;
+    font: 11px / 50px Helvetica, Arial, sans-serif!important;
+}
