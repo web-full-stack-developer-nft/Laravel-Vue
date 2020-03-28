@@ -88,7 +88,9 @@ class IssueController extends Controller
     {   
         $issue->client;
         $issue->status;
-        $issue->comments;
+        foreach ($issue->comments as $key => $value) {
+            $value->with('user');
+        }
         return $issue;
     }
 

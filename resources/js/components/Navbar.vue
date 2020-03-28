@@ -29,9 +29,8 @@
                     <div class="flex">
                     	<template v-if="token"> 
 							  <button id="userButton" class="flex items-center focus:outline-none mr-3" @click="dropdown()">
-                                <avatar :username="user.name" v-if="user"></avatar> 
-                                <span v-if="user" class="hidden md:inline-block ml-1">Hi, {{ user.name }}</span>
-
+                                <avatar :username="user.name" v-if="user" backgroundColor="#7F9CF5"></avatar> 
+                                <span v-if="user" class="hidden md:inline-block ml-1">Hi, {{ user.name }}</span
                                     <g>
                                         <path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path>
                                     </g>

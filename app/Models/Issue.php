@@ -1,5 +1,5 @@
 <?php
-
+// this model for issue activity
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -146,7 +146,7 @@ class Issue extends Model
 
      public function comments()
     {
-        return $this->hasMany("App\Models\Issuecomment");
+        return $this->hasMany("App\Models\Issuecomment")->with('user');
     }
 
     public function client()

@@ -136,7 +136,7 @@
 
       <br>
 
-      {{ comments }}
+     	<avatar username="aaaaaaaa" backgroundColor="#7F9CF5"></avatar> 
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
 	        <div>
 	        

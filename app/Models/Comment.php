@@ -1,4 +1,5 @@
 <?php
+// this model for task activity
 
 namespace App\Models;
 
@@ -12,7 +13,7 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'issue_id', 
+        'task_id', 
         'user_id', 
         'is_replyed', 
         'comment'
@@ -32,12 +33,12 @@ class Comment extends Model
 
     public function issue()
     {
-        return $this->belongsTo("App\Models\Issue");
+        return $this->belongsTo("App\Models\Task");
     }
 
     public function user()
     {
-        return $this->belongsTo("App\Models\User");
+        return $this->belongsTo("App\User");
     }
 
     /*
