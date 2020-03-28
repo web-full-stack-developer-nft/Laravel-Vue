@@ -143,13 +143,17 @@
 		    </div>
 		</form>
 	
-
-		<div v-for="comment in singleissue.comments" class="p-2">
-			<div class="flex">
-				<avatar :username="comment.user.name" backgroundColor="#7F9CF5"></avatar>
-				<div class="pl-2">
-					<p><span class="font-bold">{{ comment.user.name }}</span> <span>{{ comment.created_at }}</span></p>
-					<p class="bg-white shadow p-2 bg-gray-100">{{ comment.comment }}</p>
+		<div v-if="singleissue.comments">
+			{{ singleissue }}
+			<div  v-for="comment in reverseItems" class="p-2">
+				<div class="flex">
+					<div>
+						<avatar :username="comment.user.name" backgroundColor="#7F9CF5"></avatar>
+					</div>
+					<div class="pl-2">
+						<p><span class="font-bold">{{ comment.user.name }}</span> <span>{{ comment.created_at }}</span></p>
+						<p class="bg-white shadow p-2 bg-gray-100">{{ comment.comment }}</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -186,10 +190,15 @@ export default {
 			comment:'',
     	}
  	},
-  	computed: mapGetters({
-		authuser: 'auth/user'
-	}),
-  methods: {
+  	computed:{ 
+  		...mapGetters({
+			authuser: 'auth/user'
+		}),
+		reverseItems() {
+        	return this.singleissue.comments.slice().reverse();
+  		}  
+  	},
+  	methods: {
   	async createcommment(e){
   		if (e.keyCode === 13) {
   			this.singleissue.comments.push({comment:this.comment,user:this.authuser});

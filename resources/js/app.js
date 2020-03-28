@@ -15,7 +15,6 @@ Vue.use(vuescroll)
 // Import component
 import 'vue-loading-overlay/dist/vue-loading.css';
 
-
 import '~/plugins';
 import '~/components';
 
