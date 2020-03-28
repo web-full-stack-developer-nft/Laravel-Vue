@@ -132,11 +132,9 @@
 	</div>
 
 	<t-modal ref="modal" class="curdmodel">
-      {{ singleissue }}
+      {{ singleissue.content }}
 
       <br>
-
-     	<avatar username="aaaaaaaa" backgroundColor="#7F9CF5"></avatar> 
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
 	        <div>
 	        
@@ -144,6 +142,18 @@
 				</textarea>
 		    </div>
 		</form>
+	
+
+		<div v-for="comment in singleissue.comments" class="p-2">
+			<div class="flex">
+				<avatar :username="comment.user.name" backgroundColor="#7F9CF5"></avatar>
+				<div class="pl-2">
+					<p><span class="font-bold">{{ comment.user.name }}</span> <span>{{ comment.created_at }}</span></p>
+					<p class="bg-white shadow p-2 bg-gray-100">{{ comment.comment }}</p>
+				</div>
+			</div>
+		</div>
+
     </t-modal>
 
 </div>
