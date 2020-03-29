@@ -1,7 +1,7 @@
 <template>
 	<div class="row">
 		<div class="flex px-4 pb-8 items-start"> 
-			<div v-for="statu in status" class="rounded bg-blue-400 flex-no-shrink w-64 p-2 mr-3">
+			<div v-for="statu in status" class="rounded shadow p-2 flex-no-shrink w-64 p-2 mr-3">
 				<div class="flex justify-between py-1">
                     <h3 class="text-sm">{{ statu.name }}</h3>
                     <svg class="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"></path></svg>
@@ -13,9 +13,9 @@
 								class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter"
 								v-for="(task, index) in statu.tasks"
 								:key="task.id"
+								@click="fetchstatus"
 							>
 								{{ task.name }}
-								<Model :task="task"/>
 							</div>
 						</draggable>
 					</div>
@@ -26,6 +26,26 @@
 				<button class="btn btn-block btn-success" slot="footer" @click="addPeople(statu.id)">Add</button>
 			</div>
 		</div>
+
+		<t-modal ref="modal" class="curdmodel">
+		   	<p>IT Lab Solutions Ltd</p>
+		   	<hr>
+			
+		
+			<div v-if="element.df">
+				<div  v-for="comment in reverseItems" class="p-2">
+					<div class="flex">
+						<div>
+							<avatar :username="comment.user.name" backgroundColor="#7F9CF5"></avatar>
+						</div>
+						<div class="pl-2">
+							<p><span class="font-bold">{{ comment.user.name }}</span> <span>{{ comment.created_at }}</span></p>
+							<p class="bg-white shadow p-2 bg-gray-100">{{ comment.comment }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+	    </t-modal>
 	</div>
 </template>
 <script>
@@ -48,6 +68,10 @@ export default {
 		};
 	},
 	methods: {
+		fetchstatus(){
+
+  			this.$refs.modal.show()
+		},
 		addPeople(id){
 			console.log();
 			this.isadd=id;
