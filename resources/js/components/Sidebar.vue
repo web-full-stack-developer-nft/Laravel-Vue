@@ -98,23 +98,6 @@
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Tasks</span>
                 </router-link>
             </li>
-            <li class="my-2 md:my-0">
-                <a href="#" class="block py-2 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                  
-                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Messages</span>
-                </a>
-            </li>
-            <li class="my-2 md:my-0">
-                <a href="#" class="block py-2 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Analytics
-                    </span>
-                </a>
-            </li>
-            <li class="my-2 md:my-0">
-                <a href="#" class="block py-2 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Payments</span>
-                </a>
-            </li>
         </ul>
     </div>
 </div>
