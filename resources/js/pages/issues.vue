@@ -217,6 +217,12 @@ export default {
   	methods: {
   	async statusupdate(id){
   		let con = confirm("Are You Sure Want To Change?");
+  		if(con){
+  			await axios.post('api/issues/statusupdate',{
+												    issue_id: this.singleissue.id,
+												    status_id: id,
+												})
+  		}
   	},
   	async createcommment(e){
   		if (e.keyCode === 13) {

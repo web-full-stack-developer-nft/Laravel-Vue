@@ -58,7 +58,7 @@ class IssueController extends Controller
         }else{
             $client_id=$request->project['client_id'];
         }
-        
+
         $issue = Issue::create([
             'title' => $request->title,
             'client_id' => $client_id,
@@ -93,6 +93,15 @@ class IssueController extends Controller
         foreach ($issue->comments as $key => $value) {
             $value->with('user');
         }
+        return $issue;
+    }
+
+    //Status update
+    public function statusupdate(Request $request)
+    {
+        $issue=Issue::find($request->issue_id);
+        $issue->status_id=$request->status_id;
+        $issue->save();
         return $issue;
     }
 

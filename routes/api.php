@@ -65,6 +65,9 @@ Route::group([
        'edit'
     ]);
 
+    Route::post('issues/statusupdate', 'Admin\IssueController@statusupdate');
+
+
     Route::resource('issuecomment', 'Admin\IssuecommentController');
 
     Route::resource('tasks', 'Admin\TaskController')->except([
