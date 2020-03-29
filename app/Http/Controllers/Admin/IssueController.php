@@ -58,7 +58,7 @@ class IssueController extends Controller
         }else{
             $client_id=$request->project['client_id'];
         }
-
+        
         $issue = Issue::create([
             'title' => $request->title,
             'client_id' => $client_id,
@@ -88,6 +88,8 @@ class IssueController extends Controller
     {   
         $issue->client;
         $issue->status;
+        $issue->issue_type;
+        $issue->creator;
         foreach ($issue->comments as $key => $value) {
             $value->with('user');
         }

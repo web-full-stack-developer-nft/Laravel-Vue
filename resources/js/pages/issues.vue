@@ -1,6 +1,6 @@
 <template>
-<div class="flex">
-	<div class="w-1/2 p-3 bg-white">
+<div class="md:flex">
+	<div class="flex-initial w-full p-3 bg-white">
 		<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="create" @keydown="form.onKeydown($event)">
 			<div class="flex">
 				<div class="w-1/2 py-2 pr-2">
@@ -58,7 +58,7 @@
 		      	</label>
 			    <div class="relative">
 			        <select v-model="form.issue_type_id" class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight" id="grid-state">
-			          <option v-for="type in issue_types">{{ type.name }}</option>
+			          <option :value="type.id" v-for="type in issue_types">{{ type.name }}</option>
 			        </select>
 			        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
 			          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -99,7 +99,8 @@
 		    </div>
 		</form>
 	</div>
-	<div class="w-1/2 p-3">
+
+	<div class="flex-initial w-full p-3">
 		<h2 class="font-bold bg-blue-700 p-2 text-white">Issue Lists</h2>
 		<table class="w-full bg-white" v-if="issues">
 		   <tbody>
@@ -110,12 +111,12 @@
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Title</th>
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Details</th>
 		   		</tr>
-                <tr v-for="(issue,index) in issues" @click="fatchdata(issue.id)" class="cursor-pointer">
+                <tr v-for="(issue,index) in issues.slice().reverse()" @click="fatchdata(issue.id)" class="cursor-pointer">
                     <td class="p-2 border border-gray-200 text-sm">
                         {{ index+1 }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="issue.status.name=='pending'">{{ issue.status.name }}</span>
+                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="issue.status.name=='Pending'">{{ issue.status.name }}</span>
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
                         {{ issue.created_at }}
@@ -132,9 +133,24 @@
 	</div>
 
 	<t-modal ref="modal" class="curdmodel">
-      {{ singleissue.content }}
-
-      <br>
+	   	<p>IT Lab Solutions Ltd</p>
+	   	<hr>
+      	<h2 class="text-indigo-500">
+		  <div class="dropdown inline-block relative">
+		    <svg class="fill-current h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>{{ singleissue.title }}
+		    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+		      <li class="" v-for="st in status" @click="statusupdate(st.id)">
+		      	<a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">{{ st.name }}</a>
+		      </li>
+		    </ul>
+		  </div>
+		</h2>
+	    <p v-if="singleissue.issue_type"> Type : {{ singleissue.issue_type.name }}</p>
+	    <p v-if="singleissue.status">Status : {{ singleissue.status.name }}</p>
+	    <p v-if="singleissue.creator">Creator : {{ singleissue.creator.name }}</p>
+	    <p>Created:  {{ singleissue.created_at }}</p>
+	    <p>Details: {{ singleissue.desc }}</p>
+      	<br>
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
 	        <div>
 	        
@@ -144,7 +160,6 @@
 		</form>
 	
 		<div v-if="singleissue.comments">
-			{{ singleissue }}
 			<div  v-for="comment in reverseItems" class="p-2">
 				<div class="flex">
 					<div>
@@ -176,6 +191,7 @@ export default {
 		    issues:[],
 		    isLoadingproject:false,
 		    projects:[],
+		    status:[],
 		    issue_types:[],
 		    users:[],
 		    singleissue:[],
@@ -199,6 +215,9 @@ export default {
   		}  
   	},
   	methods: {
+  	async statusupdate(id){
+  		let con = confirm("Are You Sure Want To Change?");
+  	},
   	async createcommment(e){
   		if (e.keyCode === 13) {
   			this.singleissue.comments.push({comment:this.comment,user:this.authuser});
@@ -258,6 +277,9 @@ export default {
 	    this.users = res.data
 	    let issue_types = await axios.get('api/issue_types/all/')
 	    this.issue_types=issue_types.data
+
+	    let status = await axios.get('api/statuses/all')
+	    this.status=status.data
   }
 }
 </script>
