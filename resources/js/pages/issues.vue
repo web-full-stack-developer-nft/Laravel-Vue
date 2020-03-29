@@ -116,7 +116,27 @@
                         {{ index+1 }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="issue.status.name=='Pending'">{{ issue.status.name }}</span>
+                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
+                        	{{ statuss(issue.status_id) }}
+                    	</span>
+                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='In Progress'">
+                        	{{ statuss(issue.status_id) }}
+                    	</span>
+                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pause'">
+                        	{{ statuss(issue.status_id) }}
+                        </span>
+                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Stop'">
+                        	{{ statuss(issue.status_id) }}
+                        </span>
+                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Done'">
+                        	{{ statuss(issue.status_id) }}
+                        </span>
+                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Checked'">
+                        	{{ statuss(issue.status_id) }}
+                        </span>
+                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Completed'">
+                        	{{ statuss(issue.status_id) }}
+                        </span>
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
                         {{ issue.created_at }}
@@ -131,7 +151,6 @@
             </tbody>
         </table>
 	</div>
-
 	<t-modal ref="modal" class="curdmodel">
 	   	<p>IT Lab Solutions Ltd</p>
 	   	<hr>
@@ -212,12 +231,28 @@ export default {
 		}),
 		reverseItems() {
         	return this.singleissue.comments.slice().reverse();
-  		}  
+  		},
   	},
   	methods: {
+	statuss(id){
+		var abc =''
+		this.status.forEach((item)=>{
+			if(item.id==id){
+				abc=item.name;
+			}
+		})
+		return abc; 
+	},
   	async statusupdate(id){
   		let con = confirm("Are You Sure Want To Change?");
   		if(con){
+
+  			this.issues.find((item)=>{
+  				if(item.id==this.singleissue.id){
+  					item.status_id=id
+  				}
+  			})
+
   			await axios.post('api/issues/statusupdate',{
 												    issue_id: this.singleissue.id,
 												    status_id: id,

@@ -87,7 +87,6 @@ class IssueController extends Controller
     public function show(Issue $issue)
     {   
         $issue->client;
-        $issue->status;
         $issue->issue_type;
         $issue->creator;
         foreach ($issue->comments as $key => $value) {
