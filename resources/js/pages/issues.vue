@@ -326,6 +326,9 @@ export default {
 </script>
 
 <style>
+.curdmodel .flex-grow{
+	overflow-y: scroll!important;
+}
 	.multiselect__clear{
 		position: absolute;
 	    right: 27px;
