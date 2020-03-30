@@ -22,6 +22,7 @@ $config = [
   <title>{{ config('app.name') }}</title>
 
   <link rel="stylesheet" href="{{ mix('dist/css/main.css') }}">
+  <link rel="stylesheet" href="/vue-multiselect.min.css">
 </head>
 <body class="bg-gray-100">
   <div id="app">
