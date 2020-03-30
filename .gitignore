@@ -4,10 +4,10 @@
 /public/storage
 /storage/*.key
 /vendor
-/public/dist
 /public/build
 /public/mix-manifest.json
 .env
+.htaccess
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
