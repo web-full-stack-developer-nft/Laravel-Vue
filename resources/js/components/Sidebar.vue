@@ -94,6 +94,11 @@
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
+                <router-link to="taskcurd" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Task</span>
+                </router-link>
+            </li>
+            <li class="my-2 md:my-0">
                 <router-link to="task" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Tasks</span>
                 </router-link>

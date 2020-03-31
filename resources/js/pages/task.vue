@@ -52,6 +52,7 @@
 import draggable from "vuedraggable";
 import axios from 'axios';
 export default {
+    middleware: 'auth',
 	name: "two-lists",
 	display: "Two Lists",
 	order: 1,

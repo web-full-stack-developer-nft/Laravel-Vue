@@ -13,8 +13,8 @@ export default [
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
   { path: '/home', name: 'home', component: page('home.vue') },
+  { path: '/taskcurd', name: 'home', component: page('taskcurd.vue') },
   { path: '/task', name: 'home', component: page('task.vue') },
-  // { path: '/issue', name: 'home', component: page('Issue.vue') },
   { path: '/client', name: 'home', component: page('client.vue') },
   { path: '/project', name: 'home', component: page('project.vue') },
   { path: '/department', name: 'home', component: page('department.vue') },
