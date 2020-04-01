@@ -43,9 +43,17 @@ export default {
 			titleTemplate: `%s · ${appName}`
 		}
 	},
-
 	mounted () {
 		this.$loading = this.$refs.loading
+		window.onresize = () => {
+            if(900>=window.innerWidth && window.innerWidth>=800){
+            	let data='m';
+            	this.$store.dispatch('sidebar/setview1',{m:data})
+        	}else if(window.innerWidth>=900 && 1200>=window.innerWidth){
+        		let data='d';
+            	this.$store.dispatch('sidebar/setview1',{m:data})
+        	}
+        }
 	},
 
 	methods: {
