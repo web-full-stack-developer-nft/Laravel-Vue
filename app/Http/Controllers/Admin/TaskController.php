@@ -46,6 +46,16 @@ class TaskController extends Controller
         return $task;
     }
 
+    public function show(Task $task)
+    {   
+        $task->issue;
+        $task->creator;
+        foreach ($task->comments as $key => $value) {
+            $value->with('user');
+        }
+        return $task;
+    }
+
     public function task($issue_id='')
     {
          return Task::with('status')->where('issue_id',$issue_id)->get();

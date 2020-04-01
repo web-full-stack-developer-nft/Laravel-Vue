@@ -73,7 +73,7 @@ Route::group([
     Route::resource('issuecomment', 'Admin\IssuecommentController');
 
     Route::resource('tasks', 'Admin\TaskController')->except([
-        'show', 'edit'
+       'edit'
     ]);
     
     Route::resource('departments', 'Admin\DepartmentController')->except([

@@ -31,7 +31,7 @@ class Comment extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function issue()
+    public function task()
     {
         return $this->belongsTo("App\Models\Task");
     }

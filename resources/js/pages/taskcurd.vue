@@ -229,7 +229,7 @@ export default {
   		}
   	},
   	async fatchdata(id){
-		const { data } = await axios.get('api/issues/'+id)
+		const { data } = await axios.get('api/tasks/'+id)
 		this.singleissue=data
 		console.log(data);
   		this.$refs.modal.show()
