@@ -3,30 +3,30 @@
 	<div class="flex-initial w-full p-3 bg-white">
 		<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="create" @keydown="form.onKeydown($event)">
 			<div>
-					<multiselect 
-					v-model="form.value" 
-					:options="options" 
+				<multiselect 
+					v-model="form.issue_id" 
+					:options="issues" 
 					@search-change="asyncFind" 
-					@select="fatchissue" 
+					@select="fatchtask" 
 					:loading="isLoading"
 					:hide-selected="true"
 					:searchable="true"
-					label="name"
-					track-by="name"
+					label="title"
+					track-by="title"
 					placeholder="Search Issue"
-					>
-						<template slot="clear" slot-scope="props">
-					      <div class="multiselect__clear absolute " v-if="form.value" @mousedown.prevent.stop="clearAll(props.search)">❌</div>
-					    </template>
-					</multiselect>
-					<has-error :form="form" field="value" class="mt-2 text-red-600 text-left font-semibold" />
+				>
+					<template slot="clear" slot-scope="props">
+				      	<div class="multiselect__clear absolute " v-if="form.value" @mousedown.prevent.stop="clearAll(props.search)">❌</div>
+				    </template>
+				</multiselect>
+				<has-error :form="form" field="value" class="mt-2 text-red-600 text-left font-semibold" />
 			</div>
 			<div>
 				<label class="block text-gray-700 text-sm font-bold mb-2" for="username">
 			        Title *
 			    </label>
-				<input v-model="form.title" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Title">
-				<has-error :form="form" field="title" class="mt-2 text-red-600 text-left font-semibold" />
+				<input v-model="form.name" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Title">
+				<has-error :form="form" field="name" class="mt-2 text-red-600 text-left font-semibold" />
 			</div>
 		    <div>
 		    	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">
@@ -41,13 +41,13 @@
 		        	Person *
 		      	</label>
 		    	<multiselect 
-					v-model="form.user" 
+					v-model="form.user_id" 
 					:options="users" 
 					:hide-selected="true"
 					:searchable="true"
 					label="name"
 					track-by="name"
-					:multiple="true"
+					:multiple="false"
 					placeholder="Search Project"
 					>
 						
@@ -64,7 +64,7 @@
 
 	<div class="flex-initial w-full p-3">
 		<h2 class="font-bold bg-blue-700 p-2 text-white">Issue Lists</h2>
-		<table class="w-full bg-white" v-if="issues">
+		<table class="w-full bg-white" v-if="tasks">
 		   <tbody>
 		   		<tr>
 		   			<th class="p-2 border border-gray-200 text-sm text-left">NO</th>
@@ -73,52 +73,53 @@
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Title</th>
 		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Details</th>
 		   		</tr>
-                <tr v-for="(issue,index) in issues.slice().reverse()" @click="fatchdata(issue.id)" class="cursor-pointer">
+                <tr v-for="(task,index) in tasks.slice().reverse()" @click="fatchdata(task.id)" class="cursor-pointer">
                     <td class="p-2 border border-gray-200 text-sm">
                         {{ index+1 }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
-                        	{{ statuss(issue.status_id) }}
+                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(task.status_id)=='Pending'">
+                        	{{ statuss(task.status_id) }}
                     	</span>
-                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='In Progress'">
-                        	{{ statuss(issue.status_id) }}
+                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(task.status_id)=='In Progress'">
+                        	{{ statuss(task.status_id) }}
                     	</span>
-                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pause'">
-                        	{{ statuss(issue.status_id) }}
+                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(task.status_id)=='Pause'">
+                        	{{ statuss(task.status_id) }}
                         </span>
-                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Stop'">
-                        	{{ statuss(issue.status_id) }}
+                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(task.status_id)=='Stop'">
+                        	{{ statuss(task.status_id) }}
                         </span>
-                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Done'">
-                        	{{ statuss(issue.status_id) }}
+                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(task.status_id)=='Done'">
+                        	{{ statuss(task.status_id) }}
                         </span>
-                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Checked'">
-                        	{{ statuss(issue.status_id) }}
+                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(task.status_id)=='Checked'">
+                        	{{ statuss(task.status_id) }}
                         </span>
-                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Completed'">
-                        	{{ statuss(issue.status_id) }}
+                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(task.status_id)=='Completed'">
+                        	{{ statuss(task.status_id) }}
                         </span>
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        {{ issue.created_at }}
+                        {{ task.created_at }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        {{ issue.title }}
+                        {{ task.name }}
                     </td>
                     <td class="p-2 border border-gray-200 text-sm">
-                        {{ issue.desc }}
+                        {{ task.desc }}
                     </td>
                 </tr>
             </tbody>
         </table>
 	</div>
-	<t-modal ref="modal" class="curdmodel">
+
+	<t-modal ref="modal" class="curdmodel" v-if="singletask">
 	   	<p>IT Lab Solutions Ltd</p>
 	   	<hr>
       	<h2 class="text-indigo-500">
 		  <div class="dropdown inline-block relative">
-		    <svg class="fill-current h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>{{ singleissue.title }}
+		    <svg class="fill-current h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>{{ singletask.title }}
 		    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
 		      <li class="" v-for="st in status" @click="statusupdate(st.id)">
 		      	<a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">{{ st.name }}</a>
@@ -126,11 +127,11 @@
 		    </ul>
 		  </div>
 		</h2>
-	    <p v-if="singleissue.issue_type"> Type : {{ singleissue.issue_type.name }}</p>
-	    <p v-if="singleissue.status">Status : {{ singleissue.status.name }}</p>
-	    <p v-if="singleissue.creator">Creator : {{ singleissue.creator.name }}</p>
-	    <p>Created:  {{ singleissue.created_at }}</p>
-	    <p>Details: {{ singleissue.desc }}</p>
+	    <p v-if="singletask.issue_type"> Type : {{ singletask.issue_type.name }}</p>
+	    <p v-if="singletask.status">Status : {{ singletask.status.name }}</p>
+	    <p v-if="singletask.creator">Creator : {{ singletask.creator.name }}</p>
+	    <p>Created:  {{ singletask.created_at }}</p>
+	    <p>Details: {{ singletask.desc }}</p>
       	<br>
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
 	        <div>
@@ -140,7 +141,7 @@
 		    </div>
 		</form>
 	
-		<div v-if="singleissue.comments">
+		<div v-if="singletask.comments">
 			<div  v-for="comment in reverseItems" class="p-2">
 				<div class="flex">
 					<div>
@@ -166,22 +167,18 @@ export default {
   	middleware: 'auth',
     data () {
     	return {
-		    options: [],
 		    isLoading: false,
 		    issues:[],
 		    isLoadingproject:false,
-		    projects:[],
 		    status:[],
-		    issue_types:[],
 		    users:[],
-		    singleissue:[],
+		    singletask:[],
+		    tasks:[],
 	      	form: new Form({
-		    	value: null,
-		    	project:null,
-		    	user:[],
-		    	title:'',
-		    	issue_type_id:'',
-		    	details:''
+		    	issue_id: null,
+		    	user_id:[],
+		    	name:'',
+		    	desc:''
 			}),
 			comment:'',
     	}
@@ -191,7 +188,7 @@ export default {
 			authuser: 'auth/user'
 		}),
 		reverseItems() {
-        	return this.singleissue.comments.slice().reverse();
+        	return this.tasks.comments.slice().reverse();
   		},
   	},
   	methods: {
@@ -238,15 +235,15 @@ export default {
   		this.$refs.modal.show()
   	},
   	async create (){
-		const { data } = await this.form.post('api/issues')
-		this.issues.push(data.issue)
+		const { data } = await this.form.post('api/tasks')
+		this.tasks.push(data)
   	},
     async asyncFind(query){
     	var self = this;
     	if(query.length>0){
 	    	this.isLoading = true
-	    	let res = await axios.get('api/clientsearch/'+query)
-	    	this.options = res.data
+	    	let res = await axios.get('api/issuesearch/'+query)
+	    	this.issues = res.data
 	    	this.isLoading = false
     	}
     },
@@ -265,13 +262,9 @@ export default {
 	    	this.isLoadingproject = false
     	}
     },
-    async fatchissue(client){
-	    let res = await axios.get('api/issueforslient/'+client.id)
-	    this.issues=res.data;
-    },
-    async fatchproject(project){
-	    let res = await axios.get('api/issueforprojectsearch/'+project.id)
-	    this.issues=res.data;
+    async fatchtask(issue){
+	    let res = await axios.get('api/taskforissue/'+issue.id)
+	    this.tasks=res.data;
     }
   },
   async created(){

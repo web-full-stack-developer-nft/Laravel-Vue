@@ -32,20 +32,23 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreTaskRequest $request)
-    {
-        if ($task = Task::create([
+    {   
+        $task = Task::create([
             'name' => $request->name,
-            'user_id' => $request->user_id,
-            'issue_id' => $request->issue_id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'status_id' => $request->status_id,
+            'desc' => $request->desc,
+            'user_id' => $request->issue_id['id'],
+            'issue_id' => $request->issue_id['id'],
+            'start_date' => date("Y-m-d"),
+            'end_date' => date("Y-m-d"),
+            'status_id' => 1,
             'created_by' => auth()->user()->id
-        ])) {
-            return response()->json([
-                'task' => $task
-            ]);
-        }
+        ]);
+        return $task;
+    }
+
+    public function task($issue_id='')
+    {
+         return Task::with('status')->where('issue_id',$issue_id)->get();
     }
 
     /**
