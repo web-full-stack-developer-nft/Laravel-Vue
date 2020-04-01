@@ -25,6 +25,14 @@ class TaskController extends Controller
         ]);
     }
 
+    public function taskupdata(Request $request)
+    {
+        $tasks = Task::find($request->task_id);
+        $tasks->status_id=$request->status_id;
+        $tasks->save();
+        return 'success';
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -33,6 +41,10 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {   
+
+        $dddd = Task::all()->last();
+
+
         $task = Task::create([
             'name' => $request->name,
             'desc' => $request->desc,
@@ -40,6 +52,7 @@ class TaskController extends Controller
             'issue_id' => $request->issue_id['id'],
             'start_date' => date("Y-m-d"),
             'end_date' => date("Y-m-d"),
+            'pos' => $dddd->pos+1,
             'status_id' => 1,
             'created_by' => auth()->user()->id
         ]);

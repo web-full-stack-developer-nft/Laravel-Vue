@@ -24,6 +24,10 @@ export const mutations = {
 		}
 		console.log(state.ismobile)
 		Cookies.set('ismobile', state.ismobile)
+	},
+	[types.TOGGLE_VIEW1] (state,{m}) {
+		state.ismobile=m;
+		Cookies.set('ismobile', state.ismobile)
 	}
 }
 
@@ -31,5 +35,8 @@ export const mutations = {
 export const actions = {
 	setview ({ commit }) {
 		commit(types.TOGGLE_VIEW)
+	},
+	setview1 ({ commit },{ m }) {
+		commit(types.TOGGLE_VIEW1,{ m })
 	}
 }
