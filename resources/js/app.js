@@ -25,20 +25,20 @@ window.base_url = base_url;
 window.showMessage = showMessage;
 
 Vue.component('custom-input', {
-  props: ['value'],
-  template: `
-    <input
-     	v-model="value"
-    >
-  `
+	props: ['value'],
+	template: `
+		<input
+			v-model="value"
+		>
+	`
 })
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  i18n,
-  store,
-  router,
-  ...App
+	i18n,
+	store,
+	router,
+	...App
 })
