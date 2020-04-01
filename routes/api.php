@@ -57,6 +57,10 @@ Route::group([
     Route::get('issueforslient/{id}', 'Admin\ClientController@issue');
     Route::get('taskforissue/{id}', 'Admin\TaskController@task');
     Route::get('issueforprojectsearch/{id}', 'Admin\ProjectController@issue');
+
+    Route::resource('districts', 'Admin\DistrictController')->except(['show', 'edit']);
+    Route::get('districts/all', 'Admin\DistrictController@all');
+    Route::resource('upazilas', 'Admin\UpazilaController')->except(['show', 'edit']);
     
     Route::resource('projects', 'Admin\ProjectController')->except([
         'show', 'edit'
