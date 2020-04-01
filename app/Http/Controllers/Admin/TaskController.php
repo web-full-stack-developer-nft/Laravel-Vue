@@ -25,6 +25,14 @@ class TaskController extends Controller
         ]);
     }
 
+    public function taskupdata(Request $request)
+    {
+        $tasks = Task::find($request->task_id);
+        $tasks->status_id=$request->status_id;
+        $tasks->save();
+        return 'success';
+    }
+
     /**
      * Store a newly created resource in storage.
      *

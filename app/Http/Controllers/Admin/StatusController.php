@@ -28,15 +28,16 @@ class StatusController extends Controller
         return new DataTableCollectionResource($data);
     }
 
+
     public function status()
     {
-        $user_id = auth()->user()->id;
-       $statuses = Status::get();
-       foreach ($statuses as $key => $status) {
-           $statuses[$key]['tasks'] = $status->has('tasks.user')->with('tasks')->get();
-       }
-       return $statuses;
+        $statuses = Status::with(["tasks" => function($q){
+            $q->where('user_id', '=', auth()->user()->id);
+        }])->get();
+        return $statuses;
     }
+
+
     public function all(Request $request)
     {
         $statuses;
@@ -49,11 +50,13 @@ class StatusController extends Controller
         return \response()->json($statuses);
     }
 
+
     public function create()
     {
         $status=new Status();
         return response($status->getTableColumns());
     }
+
 
     /**
      * Store a newly created resource in storage.

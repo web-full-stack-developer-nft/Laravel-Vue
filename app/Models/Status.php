@@ -48,7 +48,7 @@ class Status extends Model
 
     public function tasks()
     {
-        return $this->HasMany("App\Models\Task");
+        return $this->HasMany("App\Models\Task")->with('user');
     }
 
     /*

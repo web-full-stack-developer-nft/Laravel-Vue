@@ -44,6 +44,7 @@ Route::group([
 ], function () { // custom admin routes
     Route::get('attendances',"Admin\AdminController@attendances");
     Route::get('status',"Admin\StatusController@status");
+    Route::post('taskupdata',"Admin\TaskController@taskupdata");
     Route::get('attendances/update/{id}',"Admin\AdminController@attendancesUpdate");
     Route::post('checkin',"Admin\AdminController@checkIn");
 
