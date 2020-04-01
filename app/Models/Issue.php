@@ -149,7 +149,7 @@ class Issue extends Model
         return $this->belongsTo("App\Models\Status");
     }
 
-     public function comments()
+    public function comments()
     {
         return $this->hasMany("App\Models\Issuecomment")->with('user');
     }

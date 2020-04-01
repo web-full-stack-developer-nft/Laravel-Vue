@@ -45,6 +45,12 @@ class IssueController extends Controller
         return response($issue->getTableColumns());
     }
 
+    public function query($query='')
+    {
+        $clients = Issue::where('title','like','%'.$query.'%')->get();
+        return $clients;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -5,9 +5,7 @@
 	width: 600px;
 	height: 100vh;
 }
-.curdmodel .flex-grow{
-	overflow-y: scroll!important;
-}
+
 .router-link-active{
 	background: #f1f1f1;
 }

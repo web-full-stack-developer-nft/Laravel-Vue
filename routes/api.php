@@ -52,8 +52,10 @@ Route::group([
     ]);
     Route::get('clients/all', 'Admin\ClientController@all');
     Route::get('clientsearch/{query}', 'Admin\ClientController@query');
+    Route::get('issuesearch/{query}', 'Admin\IssueController@query');
     Route::get('projectsearch/{query}', 'Admin\ProjectController@query');
     Route::get('issueforslient/{id}', 'Admin\ClientController@issue');
+    Route::get('taskforissue/{id}', 'Admin\TaskController@task');
     Route::get('issueforprojectsearch/{id}', 'Admin\ProjectController@issue');
     
     Route::resource('projects', 'Admin\ProjectController')->except([
@@ -71,7 +73,7 @@ Route::group([
     Route::resource('issuecomment', 'Admin\IssuecommentController');
 
     Route::resource('tasks', 'Admin\TaskController')->except([
-        'show', 'edit'
+       'edit'
     ]);
     
     Route::resource('departments', 'Admin\DepartmentController')->except([

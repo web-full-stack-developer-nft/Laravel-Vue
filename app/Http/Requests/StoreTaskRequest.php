@@ -24,11 +24,9 @@ class StoreTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_name' => 'required',
+            'name' => 'required',
             'issue_id' => 'required',
             'user_id' => 'required',
-            'status_id' => 'required', 
-            'priority' => 'required'
         ];
     }
 
@@ -40,11 +38,7 @@ class StoreTaskRequest extends FormRequest
     public function messages()
     {
         return [
-            'task_name.required' => 'Task name is required',
-            'issue_id.required'  => 'Issue is required',
-            'user_id.required'  => 'Responsible person is required',
-            'status_id.required'  => 'Task status is required',
-            'priority.required'  => 'Task priority is required',
+            
         ];
     }
 }

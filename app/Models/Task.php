@@ -13,6 +13,7 @@ class Task extends Model
      */
     protected $fillable = [
         'name', 
+        'desc',
         'user_id', 
         'issue_id', 
         'start_date', 
@@ -52,6 +53,11 @@ class Task extends Model
     public function creator()
     {
         return $this->belongsTo("App\User", "created_by");
+    }
+
+    public function comments()
+    {
+        return $this->hasMany("App\Models\Comment")->with('user');
     }
 
     /*

@@ -191,7 +191,6 @@
 				</div>
 			</div>
 		</div>
-
     </t-modal>
 
 </div>
@@ -326,6 +325,9 @@ export default {
 </script>
 
 <style>
+	.curdmodel .overflow-hidden{
+		overflow-y: scroll;
+	}
 	.multiselect__clear{
 		position: absolute;
 	    right: 27px;
