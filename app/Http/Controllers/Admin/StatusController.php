@@ -30,7 +30,12 @@ class StatusController extends Controller
 
     public function status()
     {
-       return Status::with('tasks')->get();
+        $user_id = auth()->user()->id;
+       $statuses = Status::get();
+       foreach ($statuses as $key => $status) {
+           $statuses[$key]['tasks'] = $status->has('tasks.user')->with('tasks')->get();
+       }
+       return $statuses;
     }
     public function all(Request $request)
     {
@@ -109,4 +114,5 @@ class StatusController extends Controller
             ]);
         }
     }
+    
 }
