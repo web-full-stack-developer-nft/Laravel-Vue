@@ -20,6 +20,7 @@ class CreateTasksTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('status_id');
+            $table->double('pos');
             $table->enum('priority', ['low','medium','high']);
             $table->integer('created_by');
             $table->timestamps();
