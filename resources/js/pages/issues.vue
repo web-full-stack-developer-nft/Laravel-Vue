@@ -170,6 +170,7 @@
 	    <p>Created:  {{ singleissue.created_at }}</p>
 	    <p>Details: {{ singleissue.desc }}</p>
       	<br>
+      	
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
 	        <div>
 	        

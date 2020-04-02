@@ -77,6 +77,7 @@ Route::group([
 
 
     Route::resource('issuecomment', 'Admin\IssuecommentController');
+    Route::resource('comment', 'Admin\CommentController');
 
     Route::resource('tasks', 'Admin\TaskController')->except([
        'edit'

@@ -24,7 +24,7 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'issue_id' => 'required',
+            'task_id' => 'required',
             'user_id' => 'required',
             'comment' => 'required',
         ];
@@ -38,9 +38,7 @@ class StoreCommentRequest extends FormRequest
     public function messages()
     {
         return [
-            'issue_id.required' => 'Client name is required',
-            'comment.required'  => 'Comment is required',
-            'user_id.required'  => 'Client is required',
+           
         ];
     }
 }

@@ -31,15 +31,13 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        if ($comment = Comment::create([
-            'issue_id' => $request->issue_id,
+        $comment = Comment::create([
+            'task_id' => $request->task_id,
             'user_id' => $request->user_id,
             'comment' => $request->comment,
-        ])) {
-            return response()->json([
-                'comment' => $comment
-            ]);
-        }
+        ]);
+           
+        return $comment;
     }
 
     /**

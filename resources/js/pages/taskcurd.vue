@@ -188,7 +188,7 @@ export default {
 			authuser: 'auth/user'
 		}),
 		reverseItems() {
-        	return this.tasks.comments.slice().reverse();
+        	return this.singletask.comments.slice().reverse();
   		},
   	},
   	methods: {
@@ -220,18 +220,17 @@ export default {
   	async createcommment(e){
   		if (e.keyCode === 13) {
   			this.singleissue.comments.push({comment:this.comment,user:this.authuser});
-			await axios.post('api/issuecomment',{
-												    user_id: this.authuser.id,
-												    issue_id: this.singleissue.id,
-												    comment: this.comment,
-												})
+			await axios.post('api/comment',{
+										    user_id: this.authuser.id,
+										    task_id: this.singleissue.id,
+										    comment: this.comment,
+										})
   			this.comment=''
   		}
   	},
   	async fatchdata(id){
 		const { data } = await axios.get('api/tasks/'+id)
-		this.singleissue=data
-		console.log(data);
+		this.singletask=data
   		this.$refs.modal.show()
   	},
   	async create (){
