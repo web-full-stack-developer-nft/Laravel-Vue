@@ -117,6 +117,17 @@ export default {
 		log: function(evt) {
 			if(evt.added!=undefined){
 				this.element=evt.added;
+			}else if(evt.moved){
+				let status_id=evt.moved.element.status_id
+				let index = this.status.findIndex(x => x.id === status_id)
+				let newm1=this.status[index].tasks[evt.moved.newIndex-1] ? this.status[index].tasks[evt.moved.newIndex-1].pos : 0
+				let newp1=this.status[index].tasks[evt.moved.newIndex+1] ? this.status[index].tasks[evt.moved.newIndex+1].pos : this.status[index].tasks[evt.moved.newIndex].pos+1
+				axios.post('api/posupdata',{
+					task_id:this.status[index].tasks[evt.moved.newIndex].id,
+					pos:(newm1+newp1)/2,
+				}).then((res)=>{
+					console.log(res);
+				})
 			}
 		}
 	},

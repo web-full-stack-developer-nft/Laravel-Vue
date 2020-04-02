@@ -33,6 +33,15 @@ class TaskController extends Controller
         return 'success';
     }
 
+    public function posupdata(Request $request)
+    {
+        $tasks = Task::find($request->task_id);
+        $tasks->pos=$request->pos;
+        $tasks->save();
+        return 'success';
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -43,7 +52,11 @@ class TaskController extends Controller
     {   
 
         $dddd = Task::all()->last();
-        $pos = $dddd->pos+1;
+        if($dddd){
+            $pos = $dddd->pos+1;
+        }else{
+            $pos = 1;
+        }
 
 
         $task = Task::create([
