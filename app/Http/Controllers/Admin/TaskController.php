@@ -43,6 +43,7 @@ class TaskController extends Controller
     {   
 
         $dddd = Task::all()->last();
+        $pos = $dddd->pos+1;
 
 
         $task = Task::create([
@@ -52,7 +53,7 @@ class TaskController extends Controller
             'issue_id' => $request->issue_id['id'],
             'start_date' => date("Y-m-d"),
             'end_date' => date("Y-m-d"),
-            'pos' => $dddd->pos+1,
+            'pos' => $pos,
             'status_id' => 1,
             'created_by' => auth()->user()->id
         ]);

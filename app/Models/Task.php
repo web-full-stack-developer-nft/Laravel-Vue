@@ -19,6 +19,7 @@ class Task extends Model
         'start_date', 
         'end_date', 
         'status_id', 
+        'pos', 
         'priority', 
         'created_by'
     ];
