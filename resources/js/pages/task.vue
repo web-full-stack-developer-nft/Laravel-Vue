@@ -106,10 +106,10 @@ export default {
 	  		if (e.keyCode === 13) {
 	  			this.singletask.comments.push({comment:this.comment,user:this.authuser});
 				await axios.post('api/comment',{
-													    user_id: this.authuser.id,
-													    task_id: this.singletask.id,
-													    comment: this.comment,
-													})
+											    user_id: this.authuser.id,
+											    task_id: this.singletask.id,
+											    comment: this.comment,
+											})
 	  			this.comment=''
 	  		}
 	  	},
