@@ -168,7 +168,11 @@
 	    <p v-if="singleissue.status">Status : {{ singleissue.status.name }}</p>
 	    <p v-if="singleissue.creator">Creator : {{ singleissue.creator.name }}</p>
 	    <p>Created:  {{ singleissue.created_at }}</p>
-	    <label-edit :text="singleissue.desc" id="labeledit1" v-on:text-updated="textUpdated" placeholder="Enter some text"></label-edit>
+	    <label-edit 
+	    	:text="singleissue.desc"
+	    	id="labeledit1"
+	    	v-on:text-updated="textUpdated">
+	    </label-edit>
       	<br>
       	
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
