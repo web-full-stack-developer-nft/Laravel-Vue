@@ -33,7 +33,8 @@ class IssueController extends Controller
                 'issue_type',
                 'user',
                 'status',
-            ]);
+            ]
+        );
 
         $data = $query->paginate($length);
         return new DataTableCollectionResource($data);

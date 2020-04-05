@@ -92,7 +92,7 @@ export default {
                 {
                     label: 'Client',
                     name: 'client.name',
-                    columnName: 'client.name',
+                    columnName: 'clients.name',
                     orderable: true,
                 },
                 {

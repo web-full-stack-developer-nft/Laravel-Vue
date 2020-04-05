@@ -43,8 +43,13 @@
                     </svg>
                </div>
             </li>
-            <li class="text-center text-blue-900 py-1"><h2 class="text-sm py-4 md:py-0 md:text-4xl"><router-link to="/">HUB</router-link></h2></li>
-            <li class="my-2 md:my-0">
+            <router-link to="/">
+                <li class="text-center text-blue-900 py-1">
+                    <h2 class="text-sm py-4 md:py-0 md:text-4xl">
+                    HUB</h2>
+                </li>
+            </router-link>
+            <li class="my-2 md:my-0">   
                 <a href="#" class="block justify-center hover:justify-start md:md:justify-start py-2 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400 flex items-center">
                     <svg aria-hidden="true" data-prefix="fad" data-icon="house-damage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-4 h-4">
                         <g class="fa-group">
@@ -56,27 +61,27 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <router-link to="district" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <router-link to="/district" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block active">Districts</span>
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
-                <router-link to="upazila" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <router-link to="/upazila" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block active">Upazilas</span>
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
-                <router-link to="client" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <router-link to="/client" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block active">Clients</span>
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
-                <router-link to="project" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <router-link to="/project" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Projects</span>
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
-                <router-link to="department" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <router-link to="/department" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Departments</span>
                 </router-link>
             </li>
@@ -91,11 +96,13 @@
                 </router-link>
             </li>
             <li class="my-2 md:my-0">
-                <router-link to="issue" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Issue</span>
-                </router-link>
                 <router-link to="issue-type" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Issue Types</span>
+                </router-link>
+            </li>
+            <li class="my-2 md:my-0">
+                <router-link to="issue" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <span class="w-full inline-block pb-1 md:pb-0 text-sm hidden sm:hidden md:block lg:block xl:block">Issue</span>
                 </router-link>
             </li>
             <li class="my-2 md:my-0">

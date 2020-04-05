@@ -24,6 +24,7 @@ class Issue extends Model
             'searchable' => false,
         ]
     ];
+    
     protected $columns = [
         'title'=>'', 'desc'=>'', 'client' => '', 'project'=> '', 'department' => '', 'issue_type'=> '',
     ];
@@ -63,16 +64,6 @@ class Issue extends Model
             'department' => [
                 "model" => 'App\Models\Department',
                 'foreign_key' => 'department_id',
-                'columns' => [
-                    'name' => [
-                        'searchable' => true,
-                        'orderable' => true,
-                    ],
-                ],
-            ],
-            'user' => [
-                "model" => 'App\User',
-                'foreign_key' => 'created_by',
                 'columns' => [
                     'name' => [
                         'searchable' => true,

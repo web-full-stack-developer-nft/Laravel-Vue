@@ -156,19 +156,19 @@ export default {
                 {
                     label: 'Project',
                     name: 'project.name',
-                    columnName: 'project.name',
+                    columnName: 'projects.name',
                     orderable: true,
                 },
                 {
                     label: 'Client',
                     name: 'client.name',
-                    columnName: 'client.name',
+                    columnName: 'clients.name',
                     orderable: true,
                 },
                 {
                     label: 'Department',
                     name: 'department.name',
-                    columnName: 'department.name',
+                    columnName: 'departments.name',
                     orderable: true,
                 },
                 {
@@ -180,7 +180,7 @@ export default {
                 {
                     label: 'Status',
                     name: 'status.name',
-                    columnName: 'status.name',
+                    columnName: 'statuses.name',
                     orderable: true,
                 },
                 {
