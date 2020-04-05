@@ -1,7 +1,7 @@
 <template>
 <div class="md:flex">
-	<div class="flex-initial w-full p-3 bg-white">
-		<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="create" @keydown="form.onKeydown($event)">
+	<div class="flex-initial w-full m-3 bg-white shadow-md">
+		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="create" @keydown="form.onKeydown($event)">
 			<div class="flex">
 				<div class="w-1/2 py-2 pr-2">
 					<multiselect 
@@ -100,7 +100,7 @@
 		</form>
 	</div>
 
-	<div class="flex-initial w-full p-3">
+	<div class="flex-initial w-full m-3 shadow-md p-3">
 		<h2 class="font-bold bg-blue-700 p-2 text-white">Issue Lists</h2>
 		<table class="w-full bg-white" v-if="issues">
 		   <tbody>
@@ -168,7 +168,7 @@
 	    <p v-if="singleissue.status">Status : {{ singleissue.status.name }}</p>
 	    <p v-if="singleissue.creator">Creator : {{ singleissue.creator.name }}</p>
 	    <p>Created:  {{ singleissue.created_at }}</p>
-	    <p>Details: {{ singleissue.desc }}</p>
+	    <label-edit :text="singleissue.desc" id="labeledit1" v-on:text-updated="textUpdated" placeholder="Enter some text"></label-edit>
       	<br>
       	
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
@@ -201,8 +201,12 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import LabelEdit from 'label-edit'
 export default {
   	middleware: 'auth',
+  	components: {
+	    LabelEdit,
+	},
     data () {
     	return {
 		    options: [],
@@ -234,86 +238,89 @@ export default {
   		},
   	},
   	methods: {
-	statuss(id){
-		var abc =''
-		this.status.forEach((item)=>{
-			if(item.id==id){
-				abc=item.name;
-			}
-		})
-		return abc; 
-	},
-  	async statusupdate(id){
-  		let con = confirm("Are You Sure Want To Change?");
-  		if(con){
+	  	textUpdated: function(text){
+	    	this.singleissue.desc = text;
+	    },
+		statuss(id){
+			var abc =''
+			this.status.forEach((item)=>{
+				if(item.id==id){
+					abc=item.name;
+				}
+			})
+			return abc; 
+		},
+	  	async statusupdate(id){
+	  		let con = confirm("Are You Sure Want To Change?");
+	  		if(con){
 
-  			this.issues.find((item)=>{
-  				if(item.id==this.singleissue.id){
-  					item.status_id=id
-  				}
-  			})
+	  			this.issues.find((item)=>{
+	  				if(item.id==this.singleissue.id){
+	  					item.status_id=id
+	  				}
+	  			})
 
-  			await axios.post('api/issues/statusupdate',{
-												    issue_id: this.singleissue.id,
-												    status_id: id,
-												})
-  		}
+	  			await axios.post('api/issues/statusupdate',{
+													    issue_id: this.singleissue.id,
+													    status_id: id,
+													})
+	  		}
+	  	},
+	  	async createcommment(e){
+	  		if (e.keyCode === 13) {
+	  			this.singleissue.comments.push({comment:this.comment,user:this.authuser});
+				await axios.post('api/issuecomment',{
+													    user_id: this.authuser.id,
+													    issue_id: this.singleissue.id,
+													    comment: this.comment,
+													})
+	  			this.comment=''
+	  		}
+	  	},
+	  	async fatchdata(id){
+			const { data } = await axios.get('api/issues/'+id)
+			this.singleissue=data
+			console.log(data);
+	  		this.$refs.modal.show()
+	  	},
+	  	async create (){
+			const { data } = await this.form.post('api/issues')
+			this.issues.push(data.issue)
+	  	},
+	    async asyncFind(query){
+	    	var self = this;
+	    	if(query.length>0){
+		    	this.isLoading = true
+		    	let res = await axios.get('api/clientsearch/'+query)
+		    	this.options = res.data
+		    	this.isLoading = false
+	    	}
+	    },
+	    clearAll () {
+	      this.form.value = null
+	    },
+	    clearAllProject () {
+	      this.form.project = null
+	    },
+	    async projectFind(query){
+	    	var self = this;
+	    	if(query.length>0){
+		    	this.isLoadingproject = true
+		    	let res = await axios.get('api/projectsearch/'+query)
+		    	this.projects = res.data
+		    	this.isLoadingproject = false
+	    	}
+	    },
+	    async fatchissue(client){
+		    let res = await axios.get('api/issueforslient/'+client.id)
+		    this.issues=res.data;
+	    },
+	    async fatchproject(project){
+		    let res = await axios.get('api/issueforprojectsearch/'+project.id)
+		    this.issues=res.data;
+	    }
   	},
-  	async createcommment(e){
-  		if (e.keyCode === 13) {
-  			this.singleissue.comments.push({comment:this.comment,user:this.authuser});
-			await axios.post('api/issuecomment',{
-												    user_id: this.authuser.id,
-												    issue_id: this.singleissue.id,
-												    comment: this.comment,
-												})
-  			this.comment=''
-  		}
-  	},
-  	async fatchdata(id){
-		const { data } = await axios.get('api/issues/'+id)
-		this.singleissue=data
-		console.log(data);
-  		this.$refs.modal.show()
-  	},
-  	async create (){
-		const { data } = await this.form.post('api/issues')
-		this.issues.push(data.issue)
-  	},
-    async asyncFind(query){
-    	var self = this;
-    	if(query.length>0){
-	    	this.isLoading = true
-	    	let res = await axios.get('api/clientsearch/'+query)
-	    	this.options = res.data
-	    	this.isLoading = false
-    	}
-    },
-    clearAll () {
-      this.form.value = null
-    },
-    clearAllProject () {
-      this.form.project = null
-    },
-    async projectFind(query){
-    	var self = this;
-    	if(query.length>0){
-	    	this.isLoadingproject = true
-	    	let res = await axios.get('api/projectsearch/'+query)
-	    	this.projects = res.data
-	    	this.isLoadingproject = false
-    	}
-    },
-    async fatchissue(client){
-	    let res = await axios.get('api/issueforslient/'+client.id)
-	    this.issues=res.data;
-    },
-    async fatchproject(project){
-	    let res = await axios.get('api/issueforprojectsearch/'+project.id)
-	    this.issues=res.data;
-    }
-  },
-  async created(){
+  	async created(){
 	    let res = await axios.get('api/users/')
 	    this.users = res.data
 	    let issue_types = await axios.get('api/issue_types/all/')
@@ -321,7 +328,7 @@ export default {
 
 	    let status = await axios.get('api/statuses/all')
 	    this.status=status.data
-  }
+  	}
 }
 </script>
 
