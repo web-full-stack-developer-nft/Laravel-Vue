@@ -1,6 +1,6 @@
 <template>
 <div class="md:flex">
-	<div class="flex-initial w-full m-3 bg-white shadow-md">
+	<div class="flex-initial w-full m-2 bg-white shadow-md">
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="create" @keydown="form.onKeydown($event)">
 			<div class="flex">
 				<div class="w-1/2 py-2 pr-2">
@@ -100,22 +100,22 @@
 		</form>
 	</div>
 
-	<div class="flex-initial w-full m-3 shadow-md p-3">
+	<div class="flex-initial w-full m-2 shadow-md p-3 bg-white">
 		<h2 class="font-bold bg-blue-700 p-2 text-white">Issue Lists</h2>
 		<table class="w-full bg-white" v-if="issues">
 		   <tbody>
 		   		<tr>
-		   			<th class="p-2 border border-gray-200 text-sm text-left">NO</th>
-		   			<th class="p-2 border border-gray-200 text-sm text-left">Status</th>
-		   			<th class="p-2 border border-gray-200 text-sm text-left">Creation</th>
-		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Title</th>
-		   			<th class="p-2 border border-gray-200 text-sm text-left">Issue Details</th>
+		   			<th class="p-1 border border-gray-200 text-sm text-left">NO</th>
+		   			<th class="p-1 border border-gray-200 text-sm text-left">Status</th>
+		   			<th class="p-1 border border-gray-200 text-sm text-left">Creation</th>
+		   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Title</th>
+		   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Details</th>
 		   		</tr>
                 <tr v-for="(issue,index) in issues.slice().reverse()" @click="fatchdata(issue.id)" class="cursor-pointer">
-                    <td class="p-2 border border-gray-200 text-sm">
+                    <td class="p-1 border border-gray-200 text-sm">
                         {{ index+1 }}
                     </td>
-                    <td class="p-2 border border-gray-200 text-sm">
+                    <td class="p-1 border border-gray-200 text-sm">
                         <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
                         	{{ statuss(issue.status_id) }}
                     	</span>
@@ -138,13 +138,13 @@
                         	{{ statuss(issue.status_id) }}
                         </span>
                     </td>
-                    <td class="p-2 border border-gray-200 text-sm">
+                    <td class="p-1 border border-gray-200 text-sm">
                         {{ issue.created_at }}
                     </td>
-                    <td class="p-2 border border-gray-200 text-sm">
+                    <td class="p-1 border border-gray-200 text-sm">
                         {{ issue.title }}
                     </td>
-                    <td class="p-2 border border-gray-200 text-sm">
+                    <td class="p-1 border border-gray-200 text-sm">
                         {{ issue.desc }}
                     </td>
                 </tr>
