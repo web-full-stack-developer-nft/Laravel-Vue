@@ -49,7 +49,7 @@
 				<label class="block text-gray-700 text-sm font-bold my-2 uppercase" for="username">
 			        Title <span class="text-red-600">*</span>
 			    </label>
-				<input v-model="form.title" class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Title">
+				<input v-model="form.title" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Title">
 				<has-error :form="form" field="title" class="mt-2 text-red-600 text-left font-semibold" />
 			</div>
 			<div>
@@ -156,7 +156,7 @@
     	</vue-scroll>
 	</div>
 	<t-modal ref="modal" class="curdmodel">
-	   	<p>IT Lab Solutions Ltd</p>
+	   	<p class="text-xl font-bold uppercase" v-if="singleissue.client">Client: {{ singleissue.client.name }}</p>
 	   	<hr>
       	<h2 class="text-indigo-500">
 		  <div class="dropdown inline-block relative">
