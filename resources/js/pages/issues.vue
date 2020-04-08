@@ -46,15 +46,15 @@
 				</div>
 			</div>
 			<div>
-				<label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-			        Title *
+				<label class="block text-gray-700 text-sm font-bold my-2 uppercase" for="username">
+			        Title <span class="text-red-600">*</span>
 			    </label>
-				<input v-model="form.title" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Title">
+				<input v-model="form.title" class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Title">
 				<has-error :form="form" field="title" class="mt-2 text-red-600 text-left font-semibold" />
 			</div>
 			<div>
-		      	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">
-		        	Type *
+		      	<label class="block text-gray-700 text-sm font-bold my-2 uppercase" for="grid-state">
+		        	Type <span class="text-red-600">*</span>
 		      	</label>
 			    <div class="relative">
 			        <select v-model="form.issue_type_id" class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight" id="grid-state">
@@ -67,16 +67,16 @@
 			    <has-error :form="form" field="issue_type_id" class="mt-2 text-red-600 text-left font-semibold" />
 		    </div>
 		    <div>
-		    	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">
-		        	Details *
+		    	<label class="block text-gray-700 text-sm font-bold my-2 uppercase" for="grid-state">
+		        	Details <span class="text-red-600">*</span>
 		      	</label>
 				<textarea v-model="form.desc" type="text" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Details">
 				</textarea>
 			    <has-error :form="form" field="desc" class="mt-2 text-red-600 text-left font-semibold" />
 		    </div>
 		    <div>
-		    	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">
-		        	Person *
+		    	<label class="block text-gray-700 text-sm font-bold my-2 uppercase" for="grid-state">
+		        	Person <span class="text-red-600">*</span>
 		      	</label>
 		    	<multiselect 
 					v-model="form.user" 
@@ -100,56 +100,60 @@
 		</form>
 	</div>
 
-	<div class="flex-initial w-full m-2 shadow-md p-3 bg-white">
+	<div class="flex-initial w-full m-2 shadow-md bg-white">
 		<h2 class="font-bold bg-blue-700 p-2 text-white">Issue Lists</h2>
-		<table class="w-full bg-white" v-if="issues">
-		   <tbody>
-		   		<tr>
-		   			<th class="p-1 border border-gray-200 text-sm text-left">NO</th>
-		   			<th class="p-1 border border-gray-200 text-sm text-left">Status</th>
-		   			<th class="p-1 border border-gray-200 text-sm text-left">Creation</th>
-		   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Title</th>
-		   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Details</th>
-		   		</tr>
-                <tr v-for="(issue,index) in issues.slice().reverse()" @click="fatchdata(issue.id)" class="cursor-pointer">
-                    <td class="p-1 border border-gray-200 text-sm">
-                        {{ index+1 }}
-                    </td>
-                    <td class="p-1 border border-gray-200 text-sm">
-                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
-                        	{{ statuss(issue.status_id) }}
-                    	</span>
-                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='In Progress'">
-                        	{{ statuss(issue.status_id) }}
-                    	</span>
-                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pause'">
-                        	{{ statuss(issue.status_id) }}
-                        </span>
-                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Stop'">
-                        	{{ statuss(issue.status_id) }}
-                        </span>
-                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Done'">
-                        	{{ statuss(issue.status_id) }}
-                        </span>
-                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Checked'">
-                        	{{ statuss(issue.status_id) }}
-                        </span>
-                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Completed'">
-                        	{{ statuss(issue.status_id) }}
-                        </span>
-                    </td>
-                    <td class="p-1 border border-gray-200 text-sm">
-                        {{ issue.created_at }}
-                    </td>
-                    <td class="p-1 border border-gray-200 text-sm">
-                        {{ issue.title }}
-                    </td>
-                    <td class="p-1 border border-gray-200 text-sm">
-                        {{ issue.desc }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+		<vue-scroll>
+			<div class="h-0">
+				<table class="w-full bg-white" v-if="issues">
+				   <tbody>
+				   		<tr>
+				   			<th class="p-1 border border-gray-200 text-sm text-left">NO</th>
+				   			<th class="p-1 border border-gray-200 text-sm text-left">Status</th>
+				   			<th class="p-1 border border-gray-200 text-sm text-left">Creation</th>
+				   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Title</th>
+				   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Details</th>
+				   		</tr>
+		                <tr v-for="(issue,index) in issues.slice().reverse()" @click="fatchdata(issue.id)" class="cursor-pointer">
+		                    <td class="p-1 border border-gray-200 text-sm">
+		                        {{ index+1 }}
+		                    </td>
+		                    <td class="p-1 border border-gray-200 text-sm">
+		                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
+		                        	{{ statuss(issue.status_id) }}
+		                    	</span>
+		                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='In Progress'">
+		                        	{{ statuss(issue.status_id) }}
+		                    	</span>
+		                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pause'">
+		                        	{{ statuss(issue.status_id) }}
+		                        </span>
+		                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Stop'">
+		                        	{{ statuss(issue.status_id) }}
+		                        </span>
+		                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Done'">
+		                        	{{ statuss(issue.status_id) }}
+		                        </span>
+		                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Checked'">
+		                        	{{ statuss(issue.status_id) }}
+		                        </span>
+		                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Completed'">
+		                        	{{ statuss(issue.status_id) }}
+		                        </span>
+		                    </td>
+		                    <td class="p-1 border border-gray-200 text-sm">
+		                        {{ issue.created_at }}
+		                    </td>
+		                    <td class="p-1 border border-gray-200 text-sm">
+		                        {{ issue.title }}
+		                    </td>
+		                    <td class="p-1 border border-gray-200 text-sm">
+		                        {{ issue.desc }}
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+	        </div>
+    	</vue-scroll>
 	</div>
 	<t-modal ref="modal" class="curdmodel">
 	   	<p>IT Lab Solutions Ltd</p>
