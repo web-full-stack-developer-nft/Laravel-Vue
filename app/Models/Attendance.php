@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    
-
+	protected $guarded = [];
 
     public function user()
     {

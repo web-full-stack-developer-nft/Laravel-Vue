@@ -111,4 +111,9 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     {
         return $this->belongsToMany("App\Models\Issue");
     }
+
+    public function attendance()
+    {
+        return $this->hasMany("App\Models\Attendance")->where('date',date('Y-m-d'));
+    }
 }
