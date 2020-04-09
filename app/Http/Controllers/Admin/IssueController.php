@@ -121,19 +121,24 @@ class IssueController extends Controller
     public function update(UpdateIssueRequest $request, $id)
     {
         $issue = Issue::find($id);
-        $issue->title = $request->title;
-        $issue->project_id = $request->project_id;
-        $issue->client_id = $request->client_id;
-        $issue->department_id = $request->department_id;
-        $issue->desc = $request->desc;
-        $issue->issue_type_id = $request->issue_type_id;
-        $issue->status_id = $request->status_id;
+        $issue->title = isset($request->title) ? $request->title : $issue->title;
+        $issue->project_id = isset($request->project_id) ? $request->project_id : $issue->project_id; $request->project_id;
+        $issue->client_id = isset($request->client_id) ? $request->client_id : $issue->client_id; $request->client_id;
+        $issue->department_id = isset($request->department_id) ? $request->department_id : $issue->department_id; $request->department_id;
+        $issue->desc = isset($request->desc) ? $request->desc : $issue->desc; $request->desc;
+        $issue->issue_type_id = isset($request->issue_type_id) ? $request->issue_type_id : $issue->issue_type_id; $request->issue_type_id;
+        $issue->status_id = isset($request->status_id) ? $request->status_id : $issue->status_id; $request->status_id;
         $issue->updated_at = date('Y-m-d H:i:s');
 
+        $issue->client;
+        $issue->issue_type;
+        $issue->creator;
+        foreach ($issue->comments as $key => $value) {
+            $value->with('user');
+        }
+
         if ($issue->save()) {
-            return response()->json([
-                'issue' => $issue
-            ]);
+            return response()->json($issue);
         }
     }
 

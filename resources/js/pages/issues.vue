@@ -172,11 +172,15 @@
 	    <p v-if="singleissue.status">Status : {{ singleissue.status.name }}</p>
 	    <p v-if="singleissue.creator">Creator : {{ singleissue.creator.name }}</p>
 	    <p>Created:  {{ singleissue.created_at }}</p>
-	    <label-edit 
+	    <vue-editable-element 
 	    	:text="singleissue.desc"
 	    	id="labeledit1"
-	    	v-on:text-updated="textUpdated">
-	    </label-edit>
+	    	v-on:text-updated="textUpdated"
+	    	:cssclass="'w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white'"
+	    	:textarea='true'
+	    	@textupdatedblur="updatedesc"
+	    >
+	    </vue-editable-element >
       	<br>
       	
 		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="createcommment">
@@ -246,6 +250,13 @@ export default {
   		},
   	},
   	methods: {
+  		async updatedesc(value){
+  			let { data } = await axios.post('api/issues/'+this.singleissue.id,{
+													    desc: value,
+													    _method: 'patch'
+													})
+  			this.singleissue=data
+  		},
 	  	textUpdated: function(text){
 	    	this.singleissue.desc = text;
 	    },

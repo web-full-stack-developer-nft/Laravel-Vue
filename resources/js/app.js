@@ -8,10 +8,12 @@ Vue.use(DataTable);
 import vuescroll from 'vuescroll';
 import Multiselect from 'vue-multiselect'
 import Avatar from 'vue-avatar'
+import VueEditableElement from 'vue-editable-element'
 // register globally
 Vue.component('multiselect', Multiselect)
 Vue.component('Avatar', Avatar)
 Vue.use(vuescroll)
+Vue.use(VueEditableElement)
 // Import component
 import 'vue-loading-overlay/dist/vue-loading.css';
 

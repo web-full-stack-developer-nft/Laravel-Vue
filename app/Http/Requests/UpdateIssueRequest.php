@@ -24,9 +24,7 @@ class UpdateIssueRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'department_id' => 'required',
-            'issue_type_id' => 'required',
+          
         ];
     }
 
