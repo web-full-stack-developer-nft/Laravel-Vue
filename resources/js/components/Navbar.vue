@@ -2,12 +2,7 @@
 <div>
     <div class="w-full flex flex-wrap shadow py-2">
         <nav id="header1" class="bg-gray-100 w-auto flex-1 border-b-1 border-gray-300 order-1 lg:order-2">
-
-           
             <div class="flex h-full justify-between items-center">
-
-           
-
             <!--Search-->
             <div class="relative w-50 px-6">
                 <div class="absolute h-10 mt-1 left-0 top-0 flex items-center pl-10">
@@ -21,20 +16,23 @@
             </div>
             <!-- / Search-->
 
-            <!--Menu-->
 
+            <div v-if="user.attendance">
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded">Check in</button>
+            </div>
+            <div v-else>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">Check Out</button>
+            </div>
+
+            <!--Menu-->
             <div class="flex relative inline-block pr-6">
 
                 <div class="relative text-sm">
                     <div class="flex">
                     	<template v-if="token"> 
-							  <button id="userButton" class="flex items-center focus:outline-none mr-3" @click="dropdown()">
+							<button id="userButton" class="flex items-center focus:outline-none mr-3" @click="dropdown()">
                                 <avatar :username="user.name" v-if="user" backgroundColor="#7F9CF5"></avatar> 
-                                <span v-if="user" class="hidden md:inline-block ml-1">Hi, {{ user.name }}</span
-                                    <g>
-                                        <path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path>
-                                    </g>
-                                </svg>
+                                <span v-if="user" class="hidden md:inline-block ml-1">Hi, {{ user.name }}</span>
                             </button>
 						</template>
 						<template v-else>
